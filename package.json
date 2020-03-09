@@ -11,7 +11,7 @@
   "license": "MIT",
   "scripts": {
     "start": "electron .",
-    "deploy": "electron-builder --windows nsis:ia32",
+    "deploy": "webpack & electron-builder --windows nsis:ia32",
     "dev": "webpack-dev-server --open",
     "build": "webpack",
     "build-start": "webpack & electron ."
