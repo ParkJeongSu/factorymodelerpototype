@@ -1,13 +1,22 @@
-import React from 'react';
+import React,{useState} from 'react';
 import ReactDOM from 'react-dom';
+import Main from './component/Main';
+import Login from './component/Login';
+import { connect } from 'react-redux';
 
-function App() {
+
+const App = (props) => {
+  const isLogin = props.isLogin;
+  //const isLogin = false;
   return (
-    <div>
-      <h1>test</h1>
-    </div>
+    isLogin===true ? <Main></Main> : <Login/>
   );
 }
 
+// props 로 넣어줄 스토어 상태값
+const mapStateToProps = state => ({
+  isLogin: state.logInOut.isLogin,
+});
 
-ReactDOM.render(<App />, document.getElementById('root'));
+export default connect(mapStateToProps)(App);
+
