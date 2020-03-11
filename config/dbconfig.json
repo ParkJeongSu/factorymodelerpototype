@@ -1,0 +1,22 @@
+{
+  "dbconfigList": [
+    {
+      "id": 0,
+      "name": "name1",
+      "host": "test1",
+      "dbid": "dbid1",
+      "dbpw": "1234",
+      "userid": "userid1",
+      "userpw": "pw1234"
+    },
+    {
+      "id": 1,
+      "name": "name2",
+      "host": "test1",
+      "dbid": "dbid1",
+      "dbpw": "1234",
+      "userid": "userid1",
+      "userpw": "pw1234"
+    }
+  ]
+}

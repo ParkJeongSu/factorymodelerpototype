@@ -1,10 +1,10 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
-import { logIn } from '../store/modules/logInOut';
+import { connectTest } from '../store/modules/DbConnect';
 
 
-const LoginButtonContainer = (props)=>{
+const DbConnectButtonContainer = (props)=>{
   return (
     <Button
     fullWidth
@@ -13,20 +13,20 @@ const LoginButtonContainer = (props)=>{
     className={props.test}
     onClick={(e)=>{ 
       e.preventDefault();
-      props.logIn(); 
+      props.dbConnectTest(); 
     }}
   >
-    Sign In
+    Db Connect Test
   </Button>
 );
 }
 
 
 const mapDispatchToProps = dispatch => ({
-  logIn: () => dispatch(logIn()),
+  dbConnectTest: () => dispatch(connectTest()),
 });
 
 export default connect(
   null,
   mapDispatchToProps
-)(LoginButtonContainer);
+)(DbConnectButtonContainer);

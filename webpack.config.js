@@ -38,6 +38,9 @@ module.exports = {
             }
         ]
     },
+    node: {
+        fs: "empty"
+     },
     // webpack.config.js
     devServer: {
         contentBase: __dirname + "/src/",

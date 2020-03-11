@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import ReactDOM from 'react-dom';
-import Nav from './Nav';
+import Nav from '../layout/Nav';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
