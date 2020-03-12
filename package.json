@@ -46,6 +46,11 @@
     "directories": {
       "output": "./dist/"
     },
+    "win": 
+    {
+      "target": [ "nsis" ], 
+      "icon": "config/icon.ico" 
+    },
     "asarUnpack": "./config/*",
     "nsis": {
       "oneClick": false,

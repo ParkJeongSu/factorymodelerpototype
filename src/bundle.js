@@ -23694,7 +23694,6 @@ function logInOut() {
 
   switch (action.type) {
     case LOGIN:
-      // console.log("button 을 클릭했습니다.");
       return _objectSpread({}, state, {
         isLogin: true
       });
@@ -23741,12 +23740,9 @@ function logInOut() {
       });
 
     case SELECTEDDBCONFIG:
-      console.log("selected dbconfig 호출"); //let dbconfigList = [];
+      //let dbconfigList = [];
       // only electron
-
-      var dbconfigList = window.getDbConfig(); // console.log(Number(action.id));
-      // console.log(dbconfigList);
-
+      var dbconfigList = window.getDbConfig();
       var id = '';
       var name = '';
       var host = '';
@@ -23771,7 +23767,6 @@ function logInOut() {
         }
       }
 
-      console.log(id + " " + name + " " + host + " " + dbid + " " + dbpw + " " + userid + " " + userpw);
       return _objectSpread({}, state, {
         id: id,
         name: name,
@@ -34691,7 +34686,6 @@ function _extends() {
 
 
 var AutocompleteContainer = function AutocompleteContainer(props) {
-  //const [id, setId] = React.useState(0);
   var dbconfigList = props.dbconfigList;
   console.log('AutocompleteContainer');
   console.log(dbconfigList);
@@ -34709,22 +34703,20 @@ var AutocompleteContainer = function AutocompleteContainer(props) {
       }));
     },
     onChange: function onChange(e, value) {
-      console.log('AutocompleteContainer onChange start'); //e.preventDefault();
-
-      console.log('e.target.value : ' + e.target.value);
-      console.log('e.target.name :' + e.target.name);
-      console.log(e);
-      console.log('value : ');
-      console.log(value);
-
+      // console.log('AutocompleteContainer onChange start');
+      //e.preventDefault();
+      // console.log( 'e.target.value : '+ e.target.value);
+      // console.log('e.target.name :' + e.target.name);
+      // console.log(e);
+      // console.log('value : ');
+      // console.log(value);
       try {
         props.selectedDbconfig(value.id);
       } catch (e) {
         props.selectedDbconfig(null);
       } //setId(value.id);
+      // console.log('AutocompleteContainer onChange end');
 
-
-      console.log('AutocompleteContainer onChange end');
     }
   });
 };

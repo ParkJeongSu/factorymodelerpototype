@@ -6,8 +6,6 @@ import { connect } from 'react-redux';
 import { selectedDbconfig } from '../store/modules/logInOut';
 
 const AutocompleteContainer = (props)=>{
-  //const [id, setId] = React.useState(0);
-
   let dbconfigList = props.dbconfigList;
 
   console.log('AutocompleteContainer');
@@ -17,7 +15,6 @@ const AutocompleteContainer = (props)=>{
     options={dbconfigList}
     freeSolo
     getOptionLabel ={ option =>(option.name) }
-    
     renderInput={params => {
       return (
         <TextField {...params} label="DB Connect Info" fullWidth variant="outlined"  />
@@ -25,13 +22,13 @@ const AutocompleteContainer = (props)=>{
     }
   }
     onChange={(e,value)=>{
-      console.log('AutocompleteContainer onChange start');
+      // console.log('AutocompleteContainer onChange start');
       //e.preventDefault();
-      console.log( 'e.target.value : '+ e.target.value);
-      console.log('e.target.name :' + e.target.name);
-      console.log(e);
-      console.log('value : ');
-      console.log(value);
+      // console.log( 'e.target.value : '+ e.target.value);
+      // console.log('e.target.name :' + e.target.name);
+      // console.log(e);
+      // console.log('value : ');
+      // console.log(value);
       try {
         props.selectedDbconfig(value.id);
      }
@@ -39,7 +36,7 @@ const AutocompleteContainer = (props)=>{
       props.selectedDbconfig(null);
      }
       //setId(value.id);
-      console.log('AutocompleteContainer onChange end');
+      // console.log('AutocompleteContainer onChange end');
     }}
   />
   );
