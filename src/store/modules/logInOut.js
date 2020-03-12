@@ -15,7 +15,9 @@ export const changeId =(id) =>({type:CHANGEID , id:id});
 
 // **** 초기상태 정의
 const initialState = {
-    dbconfigList : window.getDbConfig(),
+    //dbconfigList : [],
+    // only electron
+    dbconfigList : window.getDbConfig(),    
     isLogin: false,
     id: '',
     name:'',
@@ -48,6 +50,8 @@ export default function logInOut(state = initialState, action) {
         }
       case SELECTEDDBCONFIG:
         console.log('selected dbconfig 호출');
+        //let dbconfigList = [];
+        // only electron
         let dbconfigList = window.getDbConfig();
         console.log(Number(action.id));
         console.log(dbconfigList);
