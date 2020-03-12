@@ -20,6 +20,7 @@ import DbConnectLabelContainer from '../containers/DbConnectLabelContainer';
 import DbConnectButtonContainer from '../containers/DbConnectButtonContainer';
 import FormControlContainer from '../containers/FormControlContainer';
 import AutocompleteContainer from '../containers/AutocompleteContainer';
+import TextFieldContainer from '../containers/TextFieldContainer';
 
 
 
@@ -63,7 +64,6 @@ const Copyright = () => {
 
 export default function Login() {
   const classes = useStyles();
-  const inputLabel = React.useRef(null);
   const [age, setAge] = React.useState("30");
 
   const onSubmit = (e)=>{
@@ -83,56 +83,16 @@ export default function Login() {
           Sign in
         </Typography>
         <form className={classes.form} noValidate onSubmit={onSubmit}>
-          <FormControl variant="outlined" fullWidth>
-            <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
-              DB Connect Info
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-outlined-label"
-              id="demo-simple-select-outlined"
-              value={age}
-            >
-              <MenuItem value={10}>10.20.~~~</MenuItem>
-              <MenuItem value={20}>10.20.~~~</MenuItem>
-              <MenuItem value={30}>10.20.~~~</MenuItem>
-            </Select>
-          </FormControl>
           <AutocompleteContainer></AutocompleteContainer>
-          <FormControlContainer></FormControlContainer>
-
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="dbId"
-            label="db Id"
-            name="dbId"
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="dbPassword"
-            label="db Password"
-            name="dbPassword"
-            autoFocus
-          />
+          <TextFieldContainer label="host" namef ="host" autoFocus></TextFieldContainer>
+          <TextFieldContainer label="db Id" namef ="dbid" autoFocus></TextFieldContainer>
+          <TextFieldContainer label="db pw" namef ="dbpw" autoFocus></TextFieldContainer>
+          
           <DbConnectLabelContainer></DbConnectLabelContainer>
-          <IdTextFieldContainer></IdTextFieldContainer>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="fmPassword"
-            label="Factroy Modeler Password"
-            type="fmPassword"
-            id="fmPassword"
-            autoComplete="current-password"
-          />
+
+          <TextFieldContainer label="user id" namef ="userid" autoFocus></TextFieldContainer>
+          <TextFieldContainer label="user pw" namef ="userpw" autoFocus></TextFieldContainer>
+
           <DbConnectButtonContainer test={classes.submit}></DbConnectButtonContainer>
           <Button
             type="submit"

@@ -44,9 +44,9 @@
   "build": {
     "appId": "com.example.electron-cra",
     "directories": {
-      "output": "./dist/",
-      "buildResources": "config"
+      "output": "./dist/"
     },
+    "asarUnpack": "./config/*",
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true

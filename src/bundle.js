@@ -95,7 +95,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12);
-/* harmony import */ var _store_modules__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(312);
+/* harmony import */ var _store_modules__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(313);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(171);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(161);
 
@@ -23547,6 +23547,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logOut", function() { return logOut; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "selectedDbconfig", function() { return selectedDbconfig; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeId", function() { return changeId; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeName", function() { return changeName; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeHost", function() { return changeHost; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeDbId", function() { return changeDbId; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeDbPw", function() { return changeDbPw; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeUserId", function() { return changeUserId; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeUserPw", function() { return changeUserPw; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return logInOut; });
 function ownKeys(object, enumerableOnly) {
   var keys = Object.keys(object);
@@ -23601,6 +23607,12 @@ function _defineProperty(obj, key, value) {
 var LOGIN = 'logInOut/LOGIN';
 var LOGOUT = 'logInOut/LOGOUT';
 var CHANGEID = 'logInOut/CHANGEID';
+var CHANGENAME = 'logInOut/CHANGENAME';
+var CHANGEHOST = 'logInOut/CHANGEHOST';
+var CHANGEDBID = 'logInOut/CHANGEDBID';
+var CHANGEDBPW = 'logInOut/CHANGEDBPW';
+var CHANGEUSERID = 'logInOut/CHANGEUSERID';
+var CHANGEUSERPW = 'logInOut/CHANGEUSERPW';
 var SELECTEDDBCONFIG = 'logInOut/SELECTEDDBCONFIG'; // **** 액션 생섬함수 정의
 
 var logIn = function logIn() {
@@ -23624,6 +23636,42 @@ var changeId = function changeId(id) {
     type: CHANGEID,
     id: id
   };
+};
+var changeName = function changeName(name) {
+  return {
+    type: CHANGEID,
+    name: name
+  };
+};
+var changeHost = function changeHost(host) {
+  return {
+    type: CHANGEID,
+    host: host
+  };
+};
+var changeDbId = function changeDbId(dbId) {
+  return {
+    type: CHANGEID,
+    dbId: dbId
+  };
+};
+var changeDbPw = function changeDbPw(dbPw) {
+  return {
+    type: CHANGEID,
+    dbPw: dbPw
+  };
+};
+var changeUserId = function changeUserId(userId) {
+  return {
+    type: CHANGEID,
+    userId: userId
+  };
+};
+var changeUserPw = function changeUserPw(userPw) {
+  return {
+    type: CHANGEID,
+    userPw: userPw
+  };
 }; // **** 초기상태 정의
 
 var initialState = {
@@ -23646,7 +23694,7 @@ function logInOut() {
 
   switch (action.type) {
     case LOGIN:
-      console.log('button 을 클릭했습니다.');
+      // console.log("button 을 클릭했습니다.");
       return _objectSpread({}, state, {
         isLogin: true
       });
@@ -23654,7 +23702,7 @@ function logInOut() {
     case LOGOUT:
       return _objectSpread({}, state, {
         isLogin: false,
-        id: ''
+        id: ""
       });
 
     case CHANGEID:
@@ -23662,38 +23710,70 @@ function logInOut() {
         id: action.id
       });
 
+    case CHANGENAME:
+      return _objectSpread({}, state, {
+        name: action.name
+      });
+
+    case CHANGEHOST:
+      return _objectSpread({}, state, {
+        host: action.host
+      });
+
+    case CHANGEDBID:
+      return _objectSpread({}, state, {
+        dbid: action.dbid
+      });
+
+    case CHANGEDBPW:
+      return _objectSpread({}, state, {
+        dbpw: action.dbpw
+      });
+
+    case CHANGEUSERID:
+      return _objectSpread({}, state, {
+        userid: action.userid
+      });
+
+    case CHANGEUSERPW:
+      return _objectSpread({}, state, {
+        userpw: action.userpw
+      });
+
     case SELECTEDDBCONFIG:
-      console.log('selected dbconfig 호출'); //let dbconfigList = [];
+      console.log("selected dbconfig 호출"); //let dbconfigList = [];
       // only electron
 
-      var dbconfigList = window.getDbConfig();
-      console.log(Number(action.id));
-      console.log(dbconfigList);
-      var id;
-      var name;
-      var host;
-      var dbid;
-      var dbpw;
-      var userid;
-      var userpw;
+      var dbconfigList = window.getDbConfig(); // console.log(Number(action.id));
+      // console.log(dbconfigList);
 
-      for (var idx in dbconfigList) {
-        console.log('result' + Number(action.id) === dbconfigList[idx].id);
+      var id = '';
+      var name = '';
+      var host = '';
+      var dbid = '';
+      var dbpw = '';
+      var userid = '';
+      var userpw = '';
 
-        if (Number(action.id) === dbconfigList[idx].id) {
-          id = dbconfigList[idx].id;
-          name = dbconfigList[idx].name;
-          host = dbconfigList[idx].host;
-          dbid = dbconfigList[idx].dbid;
-          dbpw = dbconfigList[idx].dbpw;
-          userid = dbconfigList[idx].userid;
-          userpw = dbconfigList[idx].userpw;
+      if (action.id != null || action.id != undefined) {
+        for (var idx in dbconfigList) {
+          console.log("result" + Number(action.id) === dbconfigList[idx].id);
+
+          if (Number(action.id) === dbconfigList[idx].id) {
+            id = dbconfigList[idx].id;
+            name = dbconfigList[idx].name;
+            host = dbconfigList[idx].host;
+            dbid = dbconfigList[idx].dbid;
+            dbpw = dbconfigList[idx].dbpw;
+            userid = dbconfigList[idx].userid;
+            userpw = dbconfigList[idx].userpw;
+          }
         }
       }
 
-      console.log(id + ' ' + name + ' ' + host + ' ' + dbid + ' ' + dbpw + ' ' + userid + ' ' + userpw);
+      console.log(id + " " + name + " " + host + " " + dbid + " " + dbpw + " " + userid + " " + userpw);
       return _objectSpread({}, state, {
-        id: action.id,
+        id: id,
         name: name,
         host: host,
         dbid: dbid,
@@ -24178,6 +24258,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _containers_DbConnectButtonContainer__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(290);
 /* harmony import */ var _containers_FormControlContainer__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(292);
 /* harmony import */ var _containers_AutocompleteContainer__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(293);
+/* harmony import */ var _containers_TextFieldContainer__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(312);
 function _slicedToArray(arr, i) {
   return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
 }
@@ -24240,6 +24321,7 @@ function _arrayWithHoles(arr) {
 
 
 
+
 var useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_8__["makeStyles"])(function (theme) {
   return {
     paper: {
@@ -24280,7 +24362,6 @@ var Copyright = function Copyright() {
 
 function Login() {
   var classes = useStyles();
-  var inputLabel = react__WEBPACK_IMPORTED_MODULE_0___default.a.useRef(null);
 
   var _React$useState = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState("30"),
       _React$useState2 = _slicedToArray(_React$useState, 2),
@@ -24307,50 +24388,26 @@ function Login() {
     className: classes.form,
     noValidate: true,
     onSubmit: onSubmit
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_FormControl__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    variant: "outlined",
-    fullWidth: true
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_InputLabel__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    ref: inputLabel,
-    id: "demo-simple-select-outlined-label"
-  }, "DB Connect Info"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Select__WEBPACK_IMPORTED_MODULE_12__["default"], {
-    labelId: "demo-simple-select-outlined-label",
-    id: "demo-simple-select-outlined",
-    value: age
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_13__["default"], {
-    value: 10
-  }, "10.20.~~~"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_13__["default"], {
-    value: 20
-  }, "10.20.~~~"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_13__["default"], {
-    value: 30
-  }, "10.20.~~~"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_AutocompleteContainer__WEBPACK_IMPORTED_MODULE_19__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_FormControlContainer__WEBPACK_IMPORTED_MODULE_18__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    variant: "outlined",
-    margin: "normal",
-    required: true,
-    fullWidth: true,
-    id: "dbId",
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_AutocompleteContainer__WEBPACK_IMPORTED_MODULE_19__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_TextFieldContainer__WEBPACK_IMPORTED_MODULE_20__["default"], {
+    label: "host",
+    namef: "host",
+    autoFocus: true
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_TextFieldContainer__WEBPACK_IMPORTED_MODULE_20__["default"], {
     label: "db Id",
-    name: "dbId",
+    namef: "dbid",
     autoFocus: true
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    variant: "outlined",
-    margin: "normal",
-    required: true,
-    fullWidth: true,
-    id: "dbPassword",
-    label: "db Password",
-    name: "dbPassword",
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_TextFieldContainer__WEBPACK_IMPORTED_MODULE_20__["default"], {
+    label: "db pw",
+    namef: "dbpw",
     autoFocus: true
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_DbConnectLabelContainer__WEBPACK_IMPORTED_MODULE_16__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_IdTextFieldContainer__WEBPACK_IMPORTED_MODULE_15__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    variant: "outlined",
-    margin: "normal",
-    required: true,
-    fullWidth: true,
-    name: "fmPassword",
-    label: "Factroy Modeler Password",
-    type: "fmPassword",
-    id: "fmPassword",
-    autoComplete: "current-password"
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_DbConnectLabelContainer__WEBPACK_IMPORTED_MODULE_16__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_TextFieldContainer__WEBPACK_IMPORTED_MODULE_20__["default"], {
+    label: "user id",
+    namef: "userid",
+    autoFocus: true
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_TextFieldContainer__WEBPACK_IMPORTED_MODULE_20__["default"], {
+    label: "user pw",
+    namef: "userpw",
+    autoFocus: true
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_DbConnectButtonContainer__WEBPACK_IMPORTED_MODULE_17__["default"], {
     test: classes.submit
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -34627,48 +34684,6 @@ function _extends() {
   return _extends.apply(this, arguments);
 }
 
-function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
-}
-
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance");
-}
-
-function _iterableToArrayLimit(arr, i) {
-  if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
-    return;
-  }
-
-  var _arr = [];
-  var _n = true;
-  var _d = false;
-  var _e = undefined;
-
-  try {
-    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-      _arr.push(_s.value);
-
-      if (i && _arr.length === i) break;
-    }
-  } catch (err) {
-    _d = true;
-    _e = err;
-  } finally {
-    try {
-      if (!_n && _i["return"] != null) _i["return"]();
-    } finally {
-      if (_d) throw _e;
-    }
-  }
-
-  return _arr;
-}
-
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-
 
 
 
@@ -34676,20 +34691,16 @@ function _arrayWithHoles(arr) {
 
 
 var AutocompleteContainer = function AutocompleteContainer(props) {
-  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(0),
-      _React$useState2 = _slicedToArray(_React$useState, 2),
-      value = _React$useState2[0],
-      setvalue = _React$useState2[1];
-
+  //const [id, setId] = React.useState(0);
   var dbconfigList = props.dbconfigList;
   console.log('AutocompleteContainer');
   console.log(dbconfigList);
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_lab_Autocomplete__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    id: "free-solo-demo",
+    options: dbconfigList,
     freeSolo: true,
-    options: dbconfigList.map(function (dbconfig) {
-      return dbconfig.name;
-    }),
+    getOptionLabel: function getOptionLabel(option) {
+      return option.name;
+    },
     renderInput: function renderInput(params) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_1__["default"], _extends({}, params, {
         label: "DB Connect Info",
@@ -34697,14 +34708,22 @@ var AutocompleteContainer = function AutocompleteContainer(props) {
         variant: "outlined"
       }));
     },
-    onChange: function onChange(e) {
+    onChange: function onChange(e, value) {
       console.log('AutocompleteContainer onChange start'); //e.preventDefault();
 
-      console.log(e.target.value);
-      console.log(e.target.name);
+      console.log('e.target.value : ' + e.target.value);
+      console.log('e.target.name :' + e.target.name);
       console.log(e);
-      props.selectedDbconfig(e.target.value);
-      setvalue(e.target.value);
+      console.log('value : ');
+      console.log(value);
+
+      try {
+        props.selectedDbconfig(value.id);
+      } catch (e) {
+        props.selectedDbconfig(null);
+      } //setId(value.id);
+
+
       console.log('AutocompleteContainer onChange end');
     }
   });
@@ -40580,6 +40599,162 @@ function deprecatedPropType(validator, reason) {
 
 /***/ }),
 /* 312 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(161);
+/* harmony import */ var _material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(200);
+/* harmony import */ var _store_modules_logInOut__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(189);
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+  } else {
+    _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+  }
+
+  return _typeof(obj);
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (call && (_typeof(call) === "object" || typeof call === "function")) {
+    return call;
+  }
+
+  return _assertThisInitialized(self);
+}
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) _setPrototypeOf(subClass, superClass);
+}
+
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
+}
+
+
+
+
+
+
+var TextFieldContainer = /*#__PURE__*/function (_Component) {
+  _inherits(TextFieldContainer, _Component);
+
+  function TextFieldContainer(props) {
+    _classCallCheck(this, TextFieldContainer);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(TextFieldContainer).call(this, props));
+  }
+
+  _createClass(TextFieldContainer, [{
+    key: "render",
+    value: function render() {
+      // console.log( 'this.props :');
+      // console.log(this.props);
+      // console.log( 'this.props.name :' + this.props.namef);
+      // console.log( 'this.props[this.props.name] :' + this.props[this.props.namef]);
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        variant: "outlined",
+        margin: "normal",
+        required: true,
+        fullWidth: true,
+        name: this.props.name,
+        label: this.props.label,
+        id: this.props.label,
+        value: this.props[this.props.namef]
+      });
+    }
+  }]);
+
+  return TextFieldContainer;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+var mapStateToProps = function mapStateToProps(_ref) {
+  var logInOut = _ref.logInOut;
+  return {
+    id: logInOut.id,
+    name: logInOut.name,
+    host: logInOut.host,
+    dbid: logInOut.dbid,
+    dbpw: logInOut.dbpw,
+    userid: logInOut.userid,
+    userpw: logInOut.userpw
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    changeId: function changeId(id) {
+      return dispatch(Object(_store_modules_logInOut__WEBPACK_IMPORTED_MODULE_3__["changeId"])(id));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(TextFieldContainer));
+
+/***/ }),
+/* 313 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

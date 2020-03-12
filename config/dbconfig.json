@@ -12,11 +12,11 @@
     {
       "id": 1,
       "name": "name2",
-      "host": "test1",
-      "dbid": "dbid1",
-      "dbpw": "1234",
-      "userid": "userid1",
-      "userpw": "pw1234"
+      "host": "test2",
+      "dbid": "dbid2",
+      "dbpw": "4321",
+      "userid": "userid2",
+      "userpw": "1234pw1234"
     }
   ]
 }

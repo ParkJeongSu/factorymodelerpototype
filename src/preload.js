@@ -33,5 +33,4 @@ window.saveDbConfig = function ( e ,arg) {
     "userpw" : "pw1234"
   }
   return ipcRenderer.sendSync('saveDbConfig',temp);
-
 }

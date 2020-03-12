@@ -49,16 +49,16 @@ app.on('activate', function () {
 // code. You can also put them in separate files and require them here.
 
 ipcMain.on("getDbConfig", (event, arg) => {
-  console.log("ipcMain getDbConfig start");
+  // console.log("ipcMain getDbConfig start");
   let dbconfig = jsonfile.readFileSync(dbconfigPath);
-  console.log(dbconfig);
-  console.log("ipcMain getDbConfig end");
+  // console.log(dbconfig);
+  // console.log("ipcMain getDbConfig end");
   event.returnValue = dbconfig.dbconfigList;
 });
 
 ipcMain.on("saveDbConfig", (event, arg) => {
-  console.log("ipcMain saveDbConfig start");
-  console.log(arg);
+  // console.log("ipcMain saveDbConfig start");
+  // console.log(arg);
 
   let dbconfig = jsonfile.readFileSync(dbconfigPath);
   let idLength=dbconfig.dbconfigList.length;
@@ -66,14 +66,14 @@ ipcMain.on("saveDbConfig", (event, arg) => {
   const newdbconfig = Object.assign({id : idLength},arg);
 
   dbconfig.dbconfigList.push(newdbconfig);
-  console.log(dbconfig);
+  // console.log(dbconfig);
   // pretty json
   jsonfile.writeFileSync(dbconfigPath, dbconfig,{ spaces: 2, EOL: '\r\n' });
   //jsonfile.writeFileSync(dbconfigPath, dbconfig);
 
   dbconfig = jsonfile.readFileSync(dbconfigPath);
-  console.log(dbconfig);
-  console.log("ipcMain saveDbConfig end");
+  // console.log(dbconfig);
+  // console.log("ipcMain saveDbConfig end");
   event.returnValue = dbconfig;
 });
 
