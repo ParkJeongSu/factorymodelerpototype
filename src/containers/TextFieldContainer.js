@@ -1,17 +1,15 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
-import { changeId } from '../store/modules/logInOut';
 
 class TextFieldContainer extends Component{
   constructor(props){
     super(props);
+    this.state={
+      value : ''
+    };
   }
   render(){
-    // console.log( 'this.props :');
-    // console.log(this.props);
-    // console.log( 'this.props.name :' + this.props.namef);
-    // console.log( 'this.props[this.props.name] :' + this.props[this.props.namef]);
     return (
       <TextField
         variant="outlined"
@@ -22,6 +20,10 @@ class TextFieldContainer extends Component{
         label={this.props.label}
         id={this.props.label}
         value={this.props[this.props.namef]}
+        onChange={(e)=>{
+          this.props.onChange(e.target.value);
+        }
+        }
       >
       </TextField>
     );
@@ -38,11 +40,5 @@ const mapStateToProps = ({ logInOut }) => ({
   userpw:logInOut.userpw
 });
 
-const mapDispatchToProps = dispatch => ({
-  changeId: (id) => dispatch(changeId(id)),
-});
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TextFieldContainer);
+export default connect(mapStateToProps)(TextFieldContainer);

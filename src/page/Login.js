@@ -2,28 +2,21 @@
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
 
 import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
 
-import LoginButtonContainer from "../containers/LoginButtonContainer";
-import IdTextFieldContainer from "../containers/IdTextFieldContainer";
+
 import DbConnectLabelContainer from '../containers/DbConnectLabelContainer';
-import DbConnectButtonContainer from '../containers/DbConnectButtonContainer';
-import FormControlContainer from '../containers/FormControlContainer';
 import AutocompleteContainer from '../containers/AutocompleteContainer';
 import TextFieldContainer from '../containers/TextFieldContainer';
 
-
-
+import { connect } from 'react-redux';
+import { logIn,saveDbconfig ,deleteDbconfig ,changeName ,changeHost,changeDbId,changeDbPw ,changeUserId, changeUserPw} from '../store/modules/logInOut';
+import { connectTest } from '../store/modules/DbConnect';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -62,15 +55,8 @@ const Copyright = () => {
   );
 }
 
-export default function Login() {
+const Login = (props)=>{
   const classes = useStyles();
-  const [age, setAge] = React.useState("30");
-
-  const onSubmit = (e)=>{
-    e.preventDefault();
-    console.log('start onsubmit');
-    window.saveDbConfig(e,age);
-  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -82,42 +68,69 @@ export default function Login() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate onSubmit={onSubmit}>
-          <AutocompleteContainer></AutocompleteContainer>
-          <TextFieldContainer label="host" namef ="host" autoFocus></TextFieldContainer>
-          <TextFieldContainer label="db Id" namef ="dbid" autoFocus></TextFieldContainer>
-          <TextFieldContainer label="db pw" namef ="dbpw" autoFocus></TextFieldContainer>
+        <form className={classes.form} noValidate>
+          <AutocompleteContainer onInputChange={props.changeName}></AutocompleteContainer>
+          <TextFieldContainer label="host" namef ="host" autoFocus onChange={props.changeHost}></TextFieldContainer>
+          <TextFieldContainer label="db Id" namef ="dbid" autoFocus onChange={props.changeDbId}></TextFieldContainer>
+          <TextFieldContainer label="db pw" namef ="dbpw" autoFocus onChange={props.changeDbPw}></TextFieldContainer>
           
           <DbConnectLabelContainer></DbConnectLabelContainer>
 
-          <TextFieldContainer label="user id" namef ="userid" autoFocus></TextFieldContainer>
-          <TextFieldContainer label="user pw" namef ="userpw" autoFocus></TextFieldContainer>
-
-          <DbConnectButtonContainer test={classes.submit}></DbConnectButtonContainer>
+          <TextFieldContainer label="user id" namef ="userid" autoFocus onChange={props.changeUserId}></TextFieldContainer>
+          <TextFieldContainer label="user pw" namef ="userpw" autoFocus onChange={props.changeUserPw}></TextFieldContainer>
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={(e)=>{
+              e.preventDefault();
+              props.dbConnectTest(); 
+            }}
+          >
+            Db Connect Test
+          </Button>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick={(e)=>{
+              e.preventDefault();
+              props.saveDbconfig();
+            }}
           >
             Save
           </Button>
+
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
-            // onClick ={(e)=>{
-            //   e.preventDefault();
-            //   window.getDbConfig();
-            //   }
-            // }
+            onClick={(e)=>{
+              e.preventDefault();
+              props.deleteDbconfig();
+            }}
           >
             Delete
           </Button>
-          <LoginButtonContainer test={classes.submit}></LoginButtonContainer>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick={(e)=>{
+              e.preventDefault();
+              props.logIn(); 
+            }}
+          >
+            Sign In
+          </Button>
         </form>
       </div>
       <Box mt={8}>
@@ -126,3 +139,21 @@ export default function Login() {
     </Container>
   );
 }
+
+const mapDispatchToProps = dispatch => ({
+
+  dbConnectTest:()=>dispatch(connectTest()),
+
+  logIn:()=>dispatch(logIn()),
+  saveDbconfig: () => dispatch(saveDbconfig()),
+  deleteDbconfig : ()=>dispatch(deleteDbconfig()),
+
+  changeName : (name)=> dispatch(changeName(name)),
+  changeHost  : (host)=> dispatch(changeHost(host)),
+  changeDbId : (dbid)=> dispatch(changeDbId(dbid)),
+  changeDbPw : (dbpw)=> dispatch(changeDbPw(dbpw)),
+  changeUserId : (userid)=> dispatch(changeUserId(userid)),
+  changeUserPw : (userpw)=> dispatch(changeUserPw(userpw)),
+});
+
+export default connect(null,mapDispatchToProps)(Login);

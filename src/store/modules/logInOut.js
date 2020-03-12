@@ -11,25 +11,29 @@ const CHANGEUSERID = 'logInOut/CHANGEUSERID';
 const CHANGEUSERPW = 'logInOut/CHANGEUSERPW';
 
 const SELECTEDDBCONFIG = 'logInOut/SELECTEDDBCONFIG';
-
+const SAVEDBCONFIG = 'logInOut/SAVEDBCONFIG';
+const DELETEDBCONFIG = 'logInOut/DELETEDBCONFIG';
 
 
 // **** 액션 생섬함수 정의
 export const logIn = () => ({ type: LOGIN });
 export const logOut = () => ({ type: LOGOUT });
-export const selectedDbconfig = (id)=>({type: SELECTEDDBCONFIG,id:id});
 
 export const changeId =(id) =>({type:CHANGEID , id:id});
-export const changeName =(name) =>({type:CHANGEID , name:name});
-export const changeHost =(host) =>({type:CHANGEID , host:host});
-export const changeDbId =(dbId) =>({type:CHANGEID , dbId:dbId});
-export const changeDbPw =(dbPw) =>({type:CHANGEID , dbPw:dbPw});
-export const changeUserId =(userId) =>({type:CHANGEID , userId:userId});
-export const changeUserPw =(userPw) =>({type:CHANGEID , userPw:userPw});
+export const changeName =(name) =>({type:CHANGENAME , name:name});
+export const changeHost =(host) =>({type:CHANGEHOST , host:host});
+export const changeDbId =(dbid) =>({type:CHANGEDBID , dbid:dbid});
+export const changeDbPw =(dbpw) =>({type:CHANGEDBPW , dbpw:dbpw});
+export const changeUserId =(userid) =>({type:CHANGEUSERID , userid:userid});
+export const changeUserPw =(userpw) =>({type:CHANGEUSERPW , userpw:userpw});
+
+export const selectedDbconfig = (id)=>({type: SELECTEDDBCONFIG,id:id});
+export const saveDbconfig = () => ({type: SAVEDBCONFIG});
+export const deleteDbconfig = (id)=>({type:DELETEDBCONFIG ,id:id});
 
 // **** 초기상태 정의
 const initialState = {
-    //dbconfigList : [],
+    // dbconfigList : [],
     // only electron
     dbconfigList : window.getDbConfig(),    
     isLogin: false,
@@ -44,6 +48,7 @@ const initialState = {
 
 // **** 리듀서 작성
 export default function logInOut(state = initialState, action) {
+  let dbconfigList;
   switch (action.type) {
     case LOGIN:
       return {
@@ -91,20 +96,26 @@ export default function logInOut(state = initialState, action) {
         ...state,
         userpw: action.userpw
       };
+    case SAVEDBCONFIG:
+      dbconfigList = window.saveDbConfig(state);
+      return {
+        ...state,
+        dbconfigList : dbconfigList,
+        id:dbconfigList.length
+      };
     case SELECTEDDBCONFIG:
-      //let dbconfigList = [];
+      // let dbconfigList = [];
       // only electron
-      let dbconfigList = window.getDbConfig();
-      let id='';
-      let name='';
-      let host='';
-      let dbid='';
-      let dbpw='';
-      let userid='';
-      let userpw='';
-      if(action.id != null || action.id!=undefined){
+      dbconfigList = window.getDbConfig();
+      let id = "";
+      let name = "";
+      let host = "";
+      let dbid = "";
+      let dbpw = "";
+      let userid = "";
+      let userpw = "";
+      if (action.id != null || action.id != undefined) {
         for (var idx in dbconfigList) {
-          console.log("result" + Number(action.id) === dbconfigList[idx].id);
           if (Number(action.id) === dbconfigList[idx].id) {
             id = dbconfigList[idx].id;
             name = dbconfigList[idx].name;
@@ -116,7 +127,7 @@ export default function logInOut(state = initialState, action) {
           }
         }
       }
-      
+
       return {
         ...state,
         id: id,
@@ -131,3 +142,4 @@ export default function logInOut(state = initialState, action) {
       return state;
   }
 }
+

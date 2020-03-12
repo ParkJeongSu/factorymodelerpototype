@@ -21,16 +21,6 @@ window.getDbConfig = function () {
 
 
 
-window.saveDbConfig = function ( e ,arg) {
-  // this.console.log('saveDbConfig' + age);
-  //console.log(ipcRenderer.sendSync('saveDbConfig',age));
-  let temp = {
-    "name" :"name3",
-    "host" : "host3",
-    "dbid" : "dbid3",
-    "dbpw" : "dbpw3",
-    "userid" : "userid3",
-    "userpw" : "pw1234"
-  }
-  return ipcRenderer.sendSync('saveDbConfig',temp);
+window.saveDbConfig = function (action) {
+  return ipcRenderer.sendSync('saveDbConfig',action);
 }

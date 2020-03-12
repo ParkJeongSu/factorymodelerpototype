@@ -17,6 +17,33 @@
       "dbpw": "4321",
       "userid": "userid2",
       "userpw": "1234pw1234"
+    },
+    {
+      "id": 2,
+      "name": "abc",
+      "host": "abc",
+      "dbid": "abc",
+      "dbpw": "abc",
+      "userid": "abc",
+      "userpw": "abc"
+    },
+    {
+      "id": 3,
+      "name": "qwe",
+      "host": "qwe",
+      "dbid": "qwe",
+      "dbpw": "qwe",
+      "userid": "qwe",
+      "userpw": "qwe"
+    },
+    {
+      "id": 4,
+      "name": "name2sadsad",
+      "host": "test2",
+      "dbid": "dbid2",
+      "dbpw": "4321",
+      "userid": "userid2",
+      "userpw": "1234pw1234"
     }
   ]
 }

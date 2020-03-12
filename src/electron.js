@@ -3,6 +3,8 @@ const {app, BrowserWindow} = require('electron');
 const path = require('path');
 const jsonfile = require('jsonfile');
 const { ipcMain } = require('electron');
+const os = require('os');
+
 
 const dbconfigPath = path.join(__dirname, "/../config/dbconfig.json");
 
@@ -25,6 +27,12 @@ function createWindow () {
   //mainWindow.webContents.openDevTools()
   
   // window.ipcRenderer = ipcRenderer
+
+  // Redux tool add
+  BrowserWindow.addDevToolsExtension(
+    path.join('C://Users/ParkJeongSu/AppData/Local/Google/Chrome/User Data/Default/Extensions/lmhkpmbekcpmknklioeibfkpmmfibljd/2.17.0_0'),
+    path.join('C://Users/ParkJeongSu/AppData/Local/Google/Chrome/User Data/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/4.5.0_0')
+  )
 }
 
 // This method will be called when Electron has finished
@@ -49,21 +57,26 @@ app.on('activate', function () {
 // code. You can also put them in separate files and require them here.
 
 ipcMain.on("getDbConfig", (event, arg) => {
-  // console.log("ipcMain getDbConfig start");
   let dbconfig = jsonfile.readFileSync(dbconfigPath);
-  // console.log(dbconfig);
-  // console.log("ipcMain getDbConfig end");
   event.returnValue = dbconfig.dbconfigList;
 });
 
 ipcMain.on("saveDbConfig", (event, arg) => {
-  // console.log("ipcMain saveDbConfig start");
-  // console.log(arg);
 
   let dbconfig = jsonfile.readFileSync(dbconfigPath);
+
+  for (let i = 0; i < dbconfig.dbconfigList.length; i++) {
+    dbconfig.dbconfigList[i].id=i;
+  }
+
   let idLength=dbconfig.dbconfigList.length;
 
-  const newdbconfig = Object.assign({id : idLength},arg);
+  let newconfig = Object.assign({}, arg);
+  
+  delete newconfig.dbconfigList;
+  delete newconfig.isLogin;
+
+  const newdbconfig = Object.assign(newconfig,{id : idLength});
 
   dbconfig.dbconfigList.push(newdbconfig);
   // console.log(dbconfig);
@@ -72,9 +85,7 @@ ipcMain.on("saveDbConfig", (event, arg) => {
   //jsonfile.writeFileSync(dbconfigPath, dbconfig);
 
   dbconfig = jsonfile.readFileSync(dbconfigPath);
-  // console.log(dbconfig);
-  // console.log("ipcMain saveDbConfig end");
-  event.returnValue = dbconfig;
+  event.returnValue = dbconfig.dbconfigList;
 });
 
 
