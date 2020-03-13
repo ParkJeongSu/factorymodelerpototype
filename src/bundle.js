@@ -109,7 +109,6 @@ __webpack_require__.r(__webpack_exports__);
 var devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
 
 var store = Object(redux__WEBPACK_IMPORTED_MODULE_4__["createStore"])(_store_modules__WEBPACK_IMPORTED_MODULE_3__["default"], devTools);
-console.log(store.getState());
 react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_5__["Provider"], {
   store: store
 }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_App__WEBPACK_IMPORTED_MODULE_2__["default"], null)), document.getElementById('root'));
@@ -23682,10 +23681,9 @@ var saveDbconfig = function saveDbconfig() {
     type: SAVEDBCONFIG
   };
 };
-var deleteDbconfig = function deleteDbconfig(id) {
+var deleteDbconfig = function deleteDbconfig() {
   return {
-    type: DELETEDBCONFIG,
-    id: id
+    type: DELETEDBCONFIG
   };
 }; // **** 초기상태 정의
 
@@ -23760,6 +23758,21 @@ function logInOut() {
       return _objectSpread({}, state, {
         dbconfigList: dbconfigList,
         id: dbconfigList.length
+      });
+
+    case DELETEDBCONFIG:
+      dbconfigList = window.deleteDbConfig(state);
+      console.log('dbconfigList why?');
+      console.log(dbconfigList);
+      return _objectSpread({}, state, {
+        dbconfigList: dbconfigList,
+        id: '',
+        name: '',
+        host: '',
+        dbid: '',
+        dbpw: '',
+        userid: '',
+        userpw: ''
       });
 
     case SELECTEDDBCONFIG:
@@ -24262,12 +24275,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(125);
 /* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(15);
 /* harmony import */ var _material_ui_core_Container__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(225);
-/* harmony import */ var _containers_DbConnectLabelContainer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(227);
-/* harmony import */ var _containers_AutocompleteContainer__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(228);
-/* harmony import */ var _containers_TextFieldContainer__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(303);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(161);
-/* harmony import */ var _store_modules_logInOut__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(189);
-/* harmony import */ var _store_modules_DbConnect__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(304);
+/* harmony import */ var _material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(190);
+/* harmony import */ var _containers_DbConnectLabelContainer__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(227);
+/* harmony import */ var _containers_AutocompleteContainer__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(228);
+/* harmony import */ var _containers_TextFieldContainer__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(303);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(161);
+/* harmony import */ var _store_modules_logInOut__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(189);
+/* harmony import */ var _store_modules_DbConnect__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(304);
+
 
 
 
@@ -24302,13 +24317,6 @@ var useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_7__["ma
     },
     submit: {
       margin: theme.spacing(3, 0, 2)
-    },
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: 120
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(2)
     }
   };
 });
@@ -24336,34 +24344,45 @@ var Login = function Login(props) {
   }, "Sign in"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
     className: classes.form,
     noValidate: true
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_AutocompleteContainer__WEBPACK_IMPORTED_MODULE_10__["default"], {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_AutocompleteContainer__WEBPACK_IMPORTED_MODULE_11__["default"], {
     onInputChange: props.changeName
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_TextFieldContainer__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_TextFieldContainer__WEBPACK_IMPORTED_MODULE_12__["default"], {
     label: "host",
     namef: "host",
     autoFocus: true,
     onChange: props.changeHost
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_TextFieldContainer__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_TextFieldContainer__WEBPACK_IMPORTED_MODULE_12__["default"], {
     label: "db Id",
     namef: "dbid",
     autoFocus: true,
     onChange: props.changeDbId
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_TextFieldContainer__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_TextFieldContainer__WEBPACK_IMPORTED_MODULE_12__["default"], {
     label: "db pw",
     namef: "dbpw",
+    type: "password",
     autoFocus: true,
     onChange: props.changeDbPw
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_DbConnectLabelContainer__WEBPACK_IMPORTED_MODULE_9__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_TextFieldContainer__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_DbConnectLabelContainer__WEBPACK_IMPORTED_MODULE_10__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_TextFieldContainer__WEBPACK_IMPORTED_MODULE_12__["default"], {
     label: "user id",
     namef: "userid",
     autoFocus: true,
     onChange: props.changeUserId
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_TextFieldContainer__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_TextFieldContainer__WEBPACK_IMPORTED_MODULE_12__["default"], {
     label: "user pw",
     namef: "userpw",
+    type: "password",
     autoFocus: true,
     onChange: props.changeUserPw
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    container: true,
+    spacing: 2
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    item: true,
+    lg: 6,
+    md: 6,
+    sm: 6,
+    xs: 6
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
     type: "submit",
     fullWidth: true,
     variant: "contained",
@@ -24373,7 +24392,13 @@ var Login = function Login(props) {
       e.preventDefault();
       props.dbConnectTest();
     }
-  }, "Db Connect Test"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }, "Db Connect Test")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    item: true,
+    lg: 6,
+    md: 6,
+    sm: 6,
+    xs: 6
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
     type: "submit",
     fullWidth: true,
     variant: "contained",
@@ -24383,7 +24408,13 @@ var Login = function Login(props) {
       e.preventDefault();
       props.saveDbconfig();
     }
-  }, "Save"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }, "Save")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    item: true,
+    lg: 6,
+    md: 6,
+    sm: 6,
+    xs: 6
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
     type: "submit",
     fullWidth: true,
     variant: "contained",
@@ -24393,7 +24424,13 @@ var Login = function Login(props) {
       e.preventDefault();
       props.deleteDbconfig();
     }
-  }, "Delete"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }, "Delete")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    item: true,
+    lg: 6,
+    md: 6,
+    sm: 6,
+    xs: 6
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
     type: "submit",
     fullWidth: true,
     variant: "contained",
@@ -24403,7 +24440,7 @@ var Login = function Login(props) {
       e.preventDefault();
       props.logIn();
     }
-  }, "Sign In"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Box__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  }, "Sign In"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Box__WEBPACK_IMPORTED_MODULE_4__["default"], {
     mt: 8
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Copyright, null)));
 };
@@ -24411,39 +24448,39 @@ var Login = function Login(props) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     dbConnectTest: function dbConnectTest() {
-      return dispatch(Object(_store_modules_DbConnect__WEBPACK_IMPORTED_MODULE_14__["connectTest"])());
+      return dispatch(Object(_store_modules_DbConnect__WEBPACK_IMPORTED_MODULE_15__["connectTest"])());
     },
     logIn: function logIn() {
-      return dispatch(Object(_store_modules_logInOut__WEBPACK_IMPORTED_MODULE_13__["logIn"])());
+      return dispatch(Object(_store_modules_logInOut__WEBPACK_IMPORTED_MODULE_14__["logIn"])());
     },
     saveDbconfig: function saveDbconfig() {
-      return dispatch(Object(_store_modules_logInOut__WEBPACK_IMPORTED_MODULE_13__["saveDbconfig"])());
+      return dispatch(Object(_store_modules_logInOut__WEBPACK_IMPORTED_MODULE_14__["saveDbconfig"])());
     },
     deleteDbconfig: function deleteDbconfig() {
-      return dispatch(Object(_store_modules_logInOut__WEBPACK_IMPORTED_MODULE_13__["deleteDbconfig"])());
+      return dispatch(Object(_store_modules_logInOut__WEBPACK_IMPORTED_MODULE_14__["deleteDbconfig"])());
     },
     changeName: function changeName(name) {
-      return dispatch(Object(_store_modules_logInOut__WEBPACK_IMPORTED_MODULE_13__["changeName"])(name));
+      return dispatch(Object(_store_modules_logInOut__WEBPACK_IMPORTED_MODULE_14__["changeName"])(name));
     },
     changeHost: function changeHost(host) {
-      return dispatch(Object(_store_modules_logInOut__WEBPACK_IMPORTED_MODULE_13__["changeHost"])(host));
+      return dispatch(Object(_store_modules_logInOut__WEBPACK_IMPORTED_MODULE_14__["changeHost"])(host));
     },
     changeDbId: function changeDbId(dbid) {
-      return dispatch(Object(_store_modules_logInOut__WEBPACK_IMPORTED_MODULE_13__["changeDbId"])(dbid));
+      return dispatch(Object(_store_modules_logInOut__WEBPACK_IMPORTED_MODULE_14__["changeDbId"])(dbid));
     },
     changeDbPw: function changeDbPw(dbpw) {
-      return dispatch(Object(_store_modules_logInOut__WEBPACK_IMPORTED_MODULE_13__["changeDbPw"])(dbpw));
+      return dispatch(Object(_store_modules_logInOut__WEBPACK_IMPORTED_MODULE_14__["changeDbPw"])(dbpw));
     },
     changeUserId: function changeUserId(userid) {
-      return dispatch(Object(_store_modules_logInOut__WEBPACK_IMPORTED_MODULE_13__["changeUserId"])(userid));
+      return dispatch(Object(_store_modules_logInOut__WEBPACK_IMPORTED_MODULE_14__["changeUserId"])(userid));
     },
     changeUserPw: function changeUserPw(userpw) {
-      return dispatch(Object(_store_modules_logInOut__WEBPACK_IMPORTED_MODULE_13__["changeUserPw"])(userpw));
+      return dispatch(Object(_store_modules_logInOut__WEBPACK_IMPORTED_MODULE_14__["changeUserPw"])(userpw));
     }
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_12__["connect"])(null, mapDispatchToProps)(Login));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_13__["connect"])(null, mapDispatchToProps)(Login));
 
 /***/ }),
 /* 194 */
@@ -26284,25 +26321,7 @@ function _extends() {
 
 
 
- // let dbconfigList= [
-//   {
-//     "id": 0,
-//     "name": "name1",
-//     "host": "test1",
-//     "dbid": "dbid1",
-//     "dbpw": "1234",
-//     "userid": "userid1",
-//     "userpw": "pw1234"
-//   },
-//   {
-//     "id": 1,
-//     "name": "name2",
-//     "host": "test2",
-//     "dbid": "dbid2",
-//     "dbpw": "4321",
-//     "userid": "userid2",
-//     "userpw": "1234pw1234"
-//   }];
+
 
 var AutocompleteContainer = function AutocompleteContainer(props) {
   var dbconfigList = props.dbconfigList;
@@ -39913,6 +39932,7 @@ var TextFieldContainer = /*#__PURE__*/function (_Component) {
         label: this.props.label,
         id: this.props.label,
         value: this.props[this.props.namef],
+        type: this.props.type,
         onChange: function onChange(e) {
           _this2.props.onChange(e.target.value);
         }
@@ -40014,9 +40034,6 @@ function DbConnect() {
 
   switch (action.type) {
     case CONNECTTEST:
-      console.log('Connect Test Start'); // if connect succes return dbConnect true
-      // else if connect fail return dbConnect false
-
       return _objectSpread({}, state, {
         dbConnectTest: true
       });

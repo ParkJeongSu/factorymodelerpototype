@@ -20,6 +20,7 @@ class TextFieldContainer extends Component{
         label={this.props.label}
         id={this.props.label}
         value={this.props[this.props.namef]}
+        type={this.props.type}
         onChange={(e)=>{
           this.props.onChange(e.target.value);
         }

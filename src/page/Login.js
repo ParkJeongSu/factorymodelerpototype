@@ -8,6 +8,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import Grid from '@material-ui/core/Grid';
 
 
 import DbConnectLabelContainer from '../containers/DbConnectLabelContainer';
@@ -34,14 +35,7 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(1)
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2)
+    margin: theme.spacing(3, 0, 2),
   }
 }));
 
@@ -69,68 +63,107 @@ const Login = (props)=>{
           Sign in
         </Typography>
         <form className={classes.form} noValidate>
-          <AutocompleteContainer onInputChange={props.changeName}></AutocompleteContainer>
-          <TextFieldContainer label="host" namef ="host" autoFocus onChange={props.changeHost}></TextFieldContainer>
-          <TextFieldContainer label="db Id" namef ="dbid" autoFocus onChange={props.changeDbId}></TextFieldContainer>
-          <TextFieldContainer label="db pw" namef ="dbpw" autoFocus onChange={props.changeDbPw}></TextFieldContainer>
-          
+          <AutocompleteContainer
+            onInputChange={props.changeName}
+          ></AutocompleteContainer>
+          <TextFieldContainer
+            label="host"
+            namef="host"
+            autoFocus
+            onChange={props.changeHost}
+          ></TextFieldContainer>
+          <TextFieldContainer
+            label="db Id"
+            namef="dbid"
+            autoFocus
+            onChange={props.changeDbId}
+          ></TextFieldContainer>
+          <TextFieldContainer
+            label="db pw"
+            namef="dbpw"
+            type="password"
+            autoFocus
+            onChange={props.changeDbPw}
+          ></TextFieldContainer>
+
           <DbConnectLabelContainer></DbConnectLabelContainer>
 
-          <TextFieldContainer label="user id" namef ="userid" autoFocus onChange={props.changeUserId}></TextFieldContainer>
-          <TextFieldContainer label="user pw" namef ="userpw" autoFocus onChange={props.changeUserPw}></TextFieldContainer>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={(e)=>{
-              e.preventDefault();
-              props.dbConnectTest(); 
-            }}
-          >
-            Db Connect Test
-          </Button>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={(e)=>{
-              e.preventDefault();
-              props.saveDbconfig();
-            }}
-          >
-            Save
-          </Button>
+          <TextFieldContainer
+            label="user id"
+            namef="userid"
+            autoFocus
+            onChange={props.changeUserId}
+          ></TextFieldContainer>
+          <TextFieldContainer
+            label="user pw"
+            namef="userpw"
+            type="password"
+            autoFocus
+            onChange={props.changeUserPw}
+          ></TextFieldContainer>
 
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={(e)=>{
-              e.preventDefault();
-              props.deleteDbconfig();
-            }}
-          >
-            Delete
-          </Button>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={(e)=>{
-              e.preventDefault();
-              props.logIn(); 
-            }}
-          >
-            Sign In
-          </Button>
+          <Grid container spacing={2}>
+            <Grid item lg={6} md={6} sm={6} xs={6}>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                onClick={e => {
+                  e.preventDefault();
+                  props.dbConnectTest();
+                }}
+              >
+                Db Connect Test
+              </Button>
+            </Grid>
+            <Grid item lg={6} md={6} sm={6} xs={6}>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                onClick={e => {
+                  e.preventDefault();
+                  props.saveDbconfig();
+                }}
+              >
+                Save
+              </Button>
+            </Grid>
+            <Grid item lg={6} md={6} sm={6} xs={6}>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                onClick={e => {
+                  e.preventDefault();
+                  props.deleteDbconfig();
+                }}
+              >
+                Delete
+              </Button>
+            </Grid>
+            <Grid item lg={6} md={6} sm={6} xs={6}>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                onClick={e => {
+                  e.preventDefault();
+                  props.logIn();
+                }}
+              >
+                Sign In
+              </Button>
+            </Grid>
+          </Grid>
         </form>
       </div>
       <Box mt={8}>

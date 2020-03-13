@@ -1,8 +1,6 @@
 ﻿// 액션 타입 정의
 const CONNECTTEST = 'DbConnect/CONNECTTEST';
 
-
-
 // **** 액션 생섬함수 정의
 export const connectTest = () => ({ type: CONNECTTEST });
 
@@ -16,9 +14,6 @@ const initialState = {
 export default function DbConnect(state = initialState, action) {
     switch (action.type) {
       case CONNECTTEST:
-          console.log('Connect Test Start');
-          // if connect succes return dbConnect true
-          // else if connect fail return dbConnect false
           return {
             ...state,
             dbConnectTest: true

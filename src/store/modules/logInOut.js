@@ -29,7 +29,7 @@ export const changeUserPw =(userpw) =>({type:CHANGEUSERPW , userpw:userpw});
 
 export const selectedDbconfig = (id)=>({type: SELECTEDDBCONFIG,id:id});
 export const saveDbconfig = () => ({type: SAVEDBCONFIG});
-export const deleteDbconfig = (id)=>({type:DELETEDBCONFIG ,id:id});
+export const deleteDbconfig = ()=>({type:DELETEDBCONFIG});
 
 // **** 초기상태 정의
 const initialState = {
@@ -103,6 +103,21 @@ export default function logInOut(state = initialState, action) {
         dbconfigList : dbconfigList,
         id:dbconfigList.length
       };
+      case DELETEDBCONFIG:
+        dbconfigList = window.deleteDbConfig(state);
+        console.log('dbconfigList why?');
+        console.log(dbconfigList);
+        return {
+          ...state,
+          dbconfigList : dbconfigList,
+          id: '',
+          name: '',
+          host: '',
+          dbid: '',
+          dbpw: '',
+          userid: '',
+          userpw: ''
+        };
     case SELECTEDDBCONFIG:
       // let dbconfigList = [];
       // only electron

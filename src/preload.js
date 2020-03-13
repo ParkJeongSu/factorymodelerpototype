@@ -24,3 +24,8 @@ window.getDbConfig = function () {
 window.saveDbConfig = function (action) {
   return ipcRenderer.sendSync('saveDbConfig',action);
 }
+
+
+window.deleteDbConfig = function (action) {
+  return ipcRenderer.sendSync('deleteDbConfig',action);
+}

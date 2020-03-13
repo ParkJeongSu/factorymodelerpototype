@@ -5,27 +5,6 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { connect } from 'react-redux';
 import { selectedDbconfig } from '../store/modules/logInOut';
 
-  // let dbconfigList= [
-  //   {
-  //     "id": 0,
-  //     "name": "name1",
-  //     "host": "test1",
-  //     "dbid": "dbid1",
-  //     "dbpw": "1234",
-  //     "userid": "userid1",
-  //     "userpw": "pw1234"
-  //   },
-  //   {
-  //     "id": 1,
-  //     "name": "name2",
-  //     "host": "test2",
-  //     "dbid": "dbid2",
-  //     "dbpw": "4321",
-  //     "userid": "userid2",
-  //     "userpw": "1234pw1234"
-  //   }];
-
-
 const AutocompleteContainer = (props)=>{
   let dbconfigList = props.dbconfigList;
   return (

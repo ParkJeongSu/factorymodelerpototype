@@ -17,7 +17,9 @@ function createWindow () {
       nodeIntegration: true,
       preload: path.join(__dirname, 'preload.js')
     }
-  })
+  });
+  // you can see the menubar
+  //mainWindow.setMenu(null);
 
   // and load the index.html of the app.
   //mainWindow.loadFile('./src/index.html')
@@ -26,13 +28,14 @@ function createWindow () {
   // Open the DevTools.
   //mainWindow.webContents.openDevTools()
   
-  // window.ipcRenderer = ipcRenderer
-
   // Redux tool add
   BrowserWindow.addDevToolsExtension(
-    path.join('C://Users/ParkJeongSu/AppData/Local/Google/Chrome/User Data/Default/Extensions/lmhkpmbekcpmknklioeibfkpmmfibljd/2.17.0_0'),
     path.join('C://Users/ParkJeongSu/AppData/Local/Google/Chrome/User Data/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/4.5.0_0')
   )
+  BrowserWindow.addDevToolsExtension(
+    path.join('C://Users/ParkJeongSu/AppData/Local/Google/Chrome/User Data/Default/Extensions/lmhkpmbekcpmknklioeibfkpmmfibljd/2.17.0_0')
+  )
+  
 }
 
 // This method will be called when Electron has finished
@@ -85,6 +88,28 @@ ipcMain.on("saveDbConfig", (event, arg) => {
   //jsonfile.writeFileSync(dbconfigPath, dbconfig);
 
   dbconfig = jsonfile.readFileSync(dbconfigPath);
+  event.returnValue = dbconfig.dbconfigList;
+});
+
+
+
+ipcMain.on("deleteDbConfig", (event, arg) => {
+  let dbconfig = jsonfile.readFileSync(dbconfigPath);
+
+  let newDbconfigList = [];
+
+  for (let i = 0; i < dbconfig.dbconfigList.length; i++) {
+    if(arg.id != dbconfig.dbconfigList[i].id){
+      newDbconfigList.push(dbconfig.dbconfigList[i]);
+    }
+  }
+  for (let i = 0; i < newDbconfigList.length; i++) {
+    newDbconfigList[i].id=i;
+  }
+  dbconfig.dbconfigList = newDbconfigList;
+
+  jsonfile.writeFileSync(dbconfigPath, dbconfig,{ spaces: 2, EOL: '\r\n' });
+  
   event.returnValue = dbconfig.dbconfigList;
 });
 
