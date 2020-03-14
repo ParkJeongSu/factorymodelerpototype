@@ -1,0 +1,60 @@
+﻿{
+    "sideBarList": [
+      {
+        "menuId" : 0,
+        "menuName": "Factory",
+        "nodeLevel": "Root",
+        "parentMenuId": "",
+        "position": 0,
+        "menuType": "Normal",
+        "FM_METADATA": "",
+        "FM_POLICYMETADATA": "",
+        "adminFlag":"N"
+      },
+      {
+        "menuId" : 1,
+        "menuName": "Machine",
+        "nodeLevel": "child",
+        "parentMenuId": "",
+        "position": 0,
+        "menuType": "Normal",
+        "FM_METADATA": "",
+        "FM_POLICYMETADATA": "",
+        "adminFlag":"N"
+      },
+      {
+        "menuId" : 2,
+        "menuName": "Port",
+        "nodeLevel": "child",
+        "parentMenuId": "",
+        "position": 0,
+        "menuType": "Normal",
+        "FM_METADATA": "",
+        "FM_POLICYMETADATA": "",
+        "adminFlag":"N"
+      },
+      {
+        "menuId" : 3,
+        "menuName": "Admin",
+        "nodeLevel": "Root",
+        "parentMenuId": "",
+        "position": 0,
+        "menuType": "Normal",
+        "FM_METADATA": "",
+        "FM_POLICYMETADATA": "",
+        "adminFlag":"Y"
+      },
+      {
+        "menuId" : 4,
+        "menuName": "FM_METADATA",
+        "nodeLevel": "child",
+        "parentMenuId": "",
+        "position": 0,
+        "menuType": "Normal",
+        "FM_METADATA": "",
+        "FM_POLICYMETADATA": "",
+        "adminFlag":"Y"
+      }
+    ]
+}
+  

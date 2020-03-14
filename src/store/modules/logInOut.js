@@ -33,10 +33,10 @@ export const deleteDbconfig = ()=>({type:DELETEDBCONFIG});
 
 // **** 초기상태 정의
 const initialState = {
-    // dbconfigList : [],
+     dbconfigList : [],
     // only electron
-    dbconfigList : window.getDbConfig(),    
-    isLogin: false,
+    //dbconfigList : window.getDbConfig(),    
+    isLogin: true,
     id: '',
     name:'',
     host:'',
@@ -97,14 +97,16 @@ export default function logInOut(state = initialState, action) {
         userpw: action.userpw
       };
     case SAVEDBCONFIG:
-      dbconfigList = window.saveDbConfig(state);
+      dbconfigList = []
+      //dbconfigList = window.saveDbConfig(state);
       return {
         ...state,
         dbconfigList : dbconfigList,
         id:dbconfigList.length
       };
       case DELETEDBCONFIG:
-        dbconfigList = window.deleteDbConfig(state);
+        dbconfigList = [];
+        //dbconfigList = window.deleteDbConfig(state);
         console.log('dbconfigList why?');
         console.log(dbconfigList);
         return {
@@ -119,9 +121,9 @@ export default function logInOut(state = initialState, action) {
           userpw: ''
         };
     case SELECTEDDBCONFIG:
-      // let dbconfigList = [];
+      let dbconfigList = [];
       // only electron
-      dbconfigList = window.getDbConfig();
+      // dbconfigList = window.getDbConfig();
       let id = "";
       let name = "";
       let host = "";

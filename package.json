@@ -25,6 +25,7 @@
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-redux": "^7.2.0",
+    "recharts": "^2.0.0-beta.3",
     "redux": "^4.0.5"
   },
   "devDependencies": {
@@ -46,10 +47,11 @@
     "directories": {
       "output": "./dist/"
     },
-    "win": 
-    {
-      "target": [ "nsis" ], 
-      "icon": "config/icon.ico" 
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "config/icon.ico"
     },
     "asarUnpack": "./config/*",
     "nsis": {

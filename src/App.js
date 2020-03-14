@@ -4,10 +4,13 @@ import Main from './page/Main';
 import Login from './page/Login';
 import { connect } from 'react-redux';
 
+
+import Dashboard from './component/Dashboard'
 const App = (props) => {
   const isLogin = props.isLogin;
   return (
     isLogin===true ? <Main></Main> : <Login/>
+    // <Dashboard></Dashboard>
   );
 }
 
