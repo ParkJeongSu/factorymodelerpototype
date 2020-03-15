@@ -95,22 +95,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12);
-/* harmony import */ var _store_modules__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(1030);
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(171);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(161);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(161);
+/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(1030);
 
 
+ // import rootReducer from './store/modules';
+// import { createStore } from 'redux';
+// **** (2) 스토어를 만들고 현재 값 확인해보기
 
 
- // **** (2) 스토어를 만들고 현재 값 확인해보기
+ // const devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+// const store = createStore(rootReducer,devTools);
 
-
-
-var devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
-
-var store = Object(redux__WEBPACK_IMPORTED_MODULE_4__["createStore"])(_store_modules__WEBPACK_IMPORTED_MODULE_3__["default"], devTools);
-react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_5__["Provider"], {
-  store: store
+react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_3__["Provider"], {
+  store: _store_store__WEBPACK_IMPORTED_MODULE_4__["store"]
 }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_App__WEBPACK_IMPORTED_MODULE_2__["default"], null)), document.getElementById('root'));
 
 /***/ }),
@@ -84073,9 +84071,6 @@ var ToDoListMain = /*#__PURE__*/function (_Component) {
     _classCallCheck(this, ToDoListMain);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ToDoListMain).call(this, props));
-    _this.state = {
-      todos: props.todoList
-    };
     _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
     _this.handleRemove = _this.handleRemove.bind(_assertThisInitialized(_this));
     _this.handleCheck = _this.handleCheck.bind(_assertThisInitialized(_this));
@@ -84085,20 +84080,10 @@ var ToDoListMain = /*#__PURE__*/function (_Component) {
   _createClass(ToDoListMain, [{
     key: "handleClick",
     value: function handleClick(todo) {
-      console.log(this.state);
       this.props.createTodoList({
         task: todo,
         checked: false
-      }); // this.setState({
-      //   todos: [
-      //     ...this.state.todos,
-      //     {
-      //       id:this.state.todos.length,
-      //       task:todo,
-      //       checked:false,
-      //     }
-      //   ]
-      // })
+      });
     }
   }, {
     key: "handleRemove",
@@ -98899,6 +98884,22 @@ function Dashboard() {
 
 /***/ }),
 /* 1030 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "store", function() { return store; });
+/* harmony import */ var _modules__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1031);
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(171);
+
+
+
+var devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+
+var store = Object(redux__WEBPACK_IMPORTED_MODULE_1__["createStore"])(_modules__WEBPACK_IMPORTED_MODULE_0__["default"], devTools);
+
+/***/ }),
+/* 1031 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
