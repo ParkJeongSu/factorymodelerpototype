@@ -19,7 +19,9 @@ window.getDbConfig = function () {
   return ipcRenderer.sendSync('getDbConfig');
 }
 
-
+window.getTodoList = function () {
+  return ipcRenderer.sendSync('getTodoList');
+}
 
 window.saveDbConfig = function (action) {
   return ipcRenderer.sendSync('saveDbConfig',action);
@@ -28,4 +30,17 @@ window.saveDbConfig = function (action) {
 
 window.deleteDbConfig = function (action) {
   return ipcRenderer.sendSync('deleteDbConfig',action);
+}
+
+window.createTodoList = function(action){
+  return ipcRenderer.sendSync('createTodoList',action);
+}
+
+window.deleteTodoList = function (action) {
+  console.log('preload.js');
+  return ipcRenderer.sendSync('deleteTodoList',action);
+}
+window.checkedTodoList = function (action) {
+  console.log('preload.js');
+  return ipcRenderer.sendSync('checkedTodoList',action);
 }

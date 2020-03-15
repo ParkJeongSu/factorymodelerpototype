@@ -7,6 +7,7 @@ const os = require('os');
 
 
 const dbconfigPath = path.join(__dirname, "/../config/dbconfig.json");
+const toDoListPath = path.join(__dirname, "/../config/todoList.json");
 
 function createWindow () {
   // Create the browser window.
@@ -64,6 +65,13 @@ ipcMain.on("getDbConfig", (event, arg) => {
   event.returnValue = dbconfig.dbconfigList;
 });
 
+ipcMain.on("getTodoList", (event, arg) => {
+  let todoList = jsonfile.readFileSync(toDoListPath);
+  event.returnValue = todoList.todoList;
+});
+
+
+
 ipcMain.on("saveDbConfig", (event, arg) => {
 
   let dbconfig = jsonfile.readFileSync(dbconfigPath);
@@ -92,7 +100,6 @@ ipcMain.on("saveDbConfig", (event, arg) => {
 });
 
 
-
 ipcMain.on("deleteDbConfig", (event, arg) => {
   let dbconfig = jsonfile.readFileSync(dbconfigPath);
 
@@ -111,6 +118,81 @@ ipcMain.on("deleteDbConfig", (event, arg) => {
   jsonfile.writeFileSync(dbconfigPath, dbconfig,{ spaces: 2, EOL: '\r\n' });
   
   event.returnValue = dbconfig.dbconfigList;
+});
+
+
+
+ipcMain.on("deleteTodoList", (event, arg) => {
+  console.log('electron.js');
+  let todoList = jsonfile.readFileSync(toDoListPath);
+
+  let newTodoList = [];
+
+  for (let i = 0; i < todoList.todoList.length; i++) {
+    if(arg.id != todoList.todoList[i].id){
+      newTodoList.push(todoList.todoList[i]);
+    }
+  }
+  for (let i = 0; i < newTodoList.length; i++) {
+    newTodoList[i].id=i;
+  }
+  todoList.todoList = newTodoList;
+
+  jsonfile.writeFileSync(toDoListPath, todoList,{ spaces: 2, EOL: '\r\n' });
+  
+  event.returnValue = newTodoList;
+});
+
+
+ipcMain.on("checkedTodoList", (event, arg) => {
+  console.log('electron.js');
+  let todoList = jsonfile.readFileSync(toDoListPath);
+
+  let newTodoList = [];
+
+  for (let i = 0; i < todoList.todoList.length; i++) {
+    if(arg.id != todoList.todoList[i].id){
+      newTodoList.push(todoList.todoList[i]);
+    }
+    else{
+      newTodoList.push(
+        { id : todoList.todoList[i].id,
+          task : todoList.todoList[i].task,
+          checked : !todoList.todoList[i].checked
+         }
+        );
+    }
+  }
+
+  todoList.todoList = newTodoList;
+
+  jsonfile.writeFileSync(toDoListPath, todoList,{ spaces: 2, EOL: '\r\n' });
+  
+  event.returnValue = newTodoList;
+});
+
+
+ipcMain.on("createTodoList", (event, arg) => {
+  console.log('electron.js');
+  let todoList = jsonfile.readFileSync(toDoListPath);
+
+  for (let i = 0; i < todoList.todoList.length; i++) {
+    todoList.todoList[i].id=i;
+  }
+
+  let idLength=todoList.todoList.length;
+
+  let newtodoList = {
+    id : idLength,
+    task : arg.todo.task,
+    checked : arg.todo.checked
+  }
+
+  todoList.todoList.push(newtodoList);
+
+  jsonfile.writeFileSync(toDoListPath, todoList,{ spaces: 2, EOL: '\r\n' });
+
+  event.returnValue = todoList.todoList;
 });
 
 

@@ -6,52 +6,31 @@ import Paper from '@material-ui/core/Paper';
 import AddTodo from './AddTodo';
 import TodoList from './TodoList';
 
+import { connect } from 'react-redux';
+import { readTodoList,createTodoList,deleteTodoList,checkedTodoList } from '../store/modules/TodoList';
 
 class ToDoListMain extends Component {
-  constructor() {
-    super();
-    this.state = {
-      todos: []
-    }
+  constructor(props) {
+    super(props);
     this.handleClick = this.handleClick.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
   }
   handleClick(todo) {
-    console.log(this.state)
-    this.setState({
-      todos: [
-        ...this.state.todos,
-        {
-          id:this.state.todos.length,
-          task:todo,
-          checked:false,
-        }
-      ]
-
-    })
+    this.props.createTodoList(
+      {
+        task : todo,
+        checked :false
+      }
+    );
   }
 
   handleRemove(id) {
-      const finalTodos = this.state.todos.filter((todo) => {
-        return todo.id !== id;
-      });
-      console.log(finalTodos);
-      this.setState({
-        todos: finalTodos
-      });
+    this.props.deleteTodoList(id);
   }
 
   handleCheck(id) {
-    const finalTodos = this.state.todos.map((todo) => {
-        if(todo.id === id){
-          todo.checked =! todo.checked
-        } 
-        return todo
-      });
-      this.setState({
-        todos: finalTodos,
-      });
+    this.props.checkedTodoList(id);
   } 
 
   render() {
@@ -73,7 +52,7 @@ class ToDoListMain extends Component {
           </div>
           
           <TodoList 
-            todos={this.state.todos}
+            todos={this.props.todoList}
             handleRemove={this.handleRemove} 
             handleCheck={this.handleCheck} 
           />
@@ -87,4 +66,21 @@ class ToDoListMain extends Component {
   }
 }
 
-export default ToDoListMain;
+
+const mapStateToProps = ({ TodoList }) => (
+  {
+    todoList: TodoList.todoList
+  });
+
+
+const mapDispatchToProps = dispatch => ({
+  // logOut: () => dispatch(logOut()),
+  readTodoList : () => dispatch(readTodoList()),
+  createTodoList : (todo) => dispatch(createTodoList(todo)),
+  deleteTodoList : (id) => dispatch(deleteTodoList(id)),
+  checkedTodoList : (id) =>dispatch(checkedTodoList(id)),
+});
+
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(ToDoListMain);
