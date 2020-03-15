@@ -60,17 +60,12 @@ app.on('activate', function () {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 
+
+/* Db Config */
 ipcMain.on("getDbConfig", (event, arg) => {
   let dbconfig = jsonfile.readFileSync(dbconfigPath);
   event.returnValue = dbconfig.dbconfigList;
 });
-
-ipcMain.on("getTodoList", (event, arg) => {
-  let todoList = jsonfile.readFileSync(toDoListPath);
-  event.returnValue = todoList.todoList;
-});
-
-
 
 ipcMain.on("saveDbConfig", (event, arg) => {
 
@@ -120,7 +115,14 @@ ipcMain.on("deleteDbConfig", (event, arg) => {
   event.returnValue = dbconfig.dbconfigList;
 });
 
+/* Db Config */
 
+/* To do List */
+
+ipcMain.on("getTodoList", (event, arg) => {
+  let todoList = jsonfile.readFileSync(toDoListPath);
+  event.returnValue = todoList.todoList;
+});
 
 ipcMain.on("deleteTodoList", (event, arg) => {
   console.log('electron.js');
@@ -142,7 +144,6 @@ ipcMain.on("deleteTodoList", (event, arg) => {
   
   event.returnValue = newTodoList;
 });
-
 
 ipcMain.on("checkedTodoList", (event, arg) => {
   console.log('electron.js');
@@ -171,7 +172,6 @@ ipcMain.on("checkedTodoList", (event, arg) => {
   event.returnValue = newTodoList;
 });
 
-
 ipcMain.on("createTodoList", (event, arg) => {
   console.log('electron.js');
   let todoList = jsonfile.readFileSync(toDoListPath);
@@ -195,4 +195,4 @@ ipcMain.on("createTodoList", (event, arg) => {
   event.returnValue = todoList.todoList;
 });
 
-
+/* To do List */
