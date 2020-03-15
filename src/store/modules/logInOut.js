@@ -56,6 +56,7 @@ export default function logInOut(state = initialState, action) {
         isLogin: true
       };
     case LOGOUT:
+      console.log('?');
       return {
         ...state,
         isLogin: false,

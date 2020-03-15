@@ -13,6 +13,9 @@ import HomeIcon from '@material-ui/icons/Home';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import clsx from 'clsx';
 
+import { connect } from 'react-redux';
+import { logOut } from '../store/modules/logInOut';
+
 const Header = (props) => {
   return (
     <AppBar position="absolute" className={clsx(props.classes.appBar, props.open && props.classes.appBarShift)}>
@@ -32,7 +35,9 @@ const Header = (props) => {
       <IconButton color="inherit">
         <HomeIcon></HomeIcon>
       </IconButton>
-      <IconButton color="inherit">
+      <IconButton color="inherit" onClick={(e)=>{
+        props.logOut();
+        }}>
         <ExitToAppIcon></ExitToAppIcon>
       </IconButton>
     </Toolbar>
@@ -40,4 +45,8 @@ const Header = (props) => {
   );
 }
 
-export default Header;
+const mapDispatchToProps = dispatch => ({
+  logOut: () => dispatch(logOut()),
+});
+
+export default connect(null,mapDispatchToProps)(Header);

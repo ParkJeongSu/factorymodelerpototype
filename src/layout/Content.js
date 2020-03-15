@@ -8,12 +8,23 @@ import Chart from '../component/Chart';
 import Deposits from '../component/Deposits';
 import Orders from '../component/Orders';
 import Copyright from './Footer';
+import ToDoListMain from '../component/ToDoListMain';
+
 
 const Content = (props)=> {
     return (
-        <main className={props.classes.content}>
+      <main className={props.classes.content}>
         <div className={props.classes.appBarSpacer} />
         <Container maxWidth="lg" className={props.classes.container}>
+
+          {/* Home */}
+          <Grid container spacing={3}>
+            {/* Chart */}
+            <Grid item xs={12} md={8} lg={9}>
+              <ToDoListMain />
+            </Grid>
+          </Grid>
+
           <Grid container spacing={3}>
             {/* Chart */}
             <Grid item xs={12} md={8} lg={9}>
@@ -35,7 +46,10 @@ const Content = (props)=> {
             </Grid>
           </Grid>
 
+          {/* Home */}
+
           
+
           <Box pt={4}>
             <Copyright />
           </Box>
