@@ -7,6 +7,10 @@ import Content from '../layout/Content';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
+import {readSidebar} from './../store/modules/Sidebar';
+import { connect } from 'react-redux';
+
+
 import ReactDOM from 'react-dom';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -93,11 +97,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const  Main = ()=> {
+const  Main = (props)=> {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-
+  props.readSidebar();
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -114,4 +118,11 @@ const  Main = ()=> {
     );
   }
 
-  export default Main;
+  // export default Main;
+
+  const mapDispatchToProps = dispatch => ({
+    readSidebar: () => dispatch(readSidebar()),
+  });
+  
+
+  export default connect(null,mapDispatchToProps)(Main);

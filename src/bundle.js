@@ -7685,10 +7685,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _layout_Content__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(281);
 /* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(16);
 /* harmony import */ var _material_ui_core_CssBaseline__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(193);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(6);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(121);
-/* harmony import */ var _material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(249);
+/* harmony import */ var _store_modules_Sidebar__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(280);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(161);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(6);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(121);
+/* harmony import */ var _material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(249);
 function _slicedToArray(arr, i) {
   return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
 }
@@ -7790,6 +7792,8 @@ function _defineProperty(obj, key, value) {
 
 
 
+
+
 var drawerWidth = 240;
 var useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_5__["makeStyles"])(function (theme) {
   return {
@@ -7871,7 +7875,7 @@ var useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_5__["ma
   };
 });
 
-var Main = function Main() {
+var Main = function Main(props) {
   var classes = useStyles();
 
   var _React$useState = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(true),
@@ -7880,6 +7884,7 @@ var Main = function Main() {
       setOpen = _React$useState2[1];
 
   var fixedHeightPaper = Object(clsx__WEBPACK_IMPORTED_MODULE_1__["default"])(classes.paper, classes.fixedHeight);
+  props.readSidebar();
 
   var handleDrawerOpen = function handleDrawerOpen() {
     setOpen(true);
@@ -7903,9 +7908,18 @@ var Main = function Main() {
     classes: classes,
     fixedHeightPaper: fixedHeightPaper
   }));
+}; // export default Main;
+
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    readSidebar: function readSidebar() {
+      return dispatch(Object(_store_modules_Sidebar__WEBPACK_IMPORTED_MODULE_7__["readSidebar"])());
+    }
+  };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Main);
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_8__["connect"])(null, mapDispatchToProps)(Main));
 
 /***/ }),
 /* 14 */
@@ -24172,9 +24186,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var Sidebar = function Sidebar(props) {
-  // props.getMenuList();
-  // props.getAdminMenuList();
-  props.readSidebar();
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Drawer__WEBPACK_IMPORTED_MODULE_4__["default"], {
     variant: "permanent",
     classes: {
@@ -24185,23 +24196,35 @@ var Sidebar = function Sidebar(props) {
     className: props.classes.toolbarIcon
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_11__["default"], {
     onClick: props.handleDrawerClose
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_ChevronLeft__WEBPACK_IMPORTED_MODULE_18___default.a, null))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_10__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_10__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_List__WEBPACK_IMPORTED_MODULE_8__["default"], null, _component_listItems__WEBPACK_IMPORTED_MODULE_20__["secondaryListItems"]));
-}; // export default Sidebar;
-// const mapStateToProps = ({ Sidebar }) => ({
-//   // menuList: Sidebar.menuList
-// });
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_ChevronLeft__WEBPACK_IMPORTED_MODULE_18___default.a, null))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_10__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_component_NestedList__WEBPACK_IMPORTED_MODULE_21__["default"], {
+    menuTitle: "Menu",
+    menuList: props.menuList,
+    checkedMenu: props.checkedMenu
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_10__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_component_NestedList__WEBPACK_IMPORTED_MODULE_21__["default"], {
+    menuTitle: "Admin",
+    menuList: props.adminMenuList,
+    checkedMenu: props.checkedMenu
+  }));
+};
 
+var mapStateToProps = function mapStateToProps(_ref) {
+  var Sidebar = _ref.Sidebar;
+  return {
+    menuList: Sidebar.menuList,
+    adminMenuList: Sidebar.adminMenuList
+  };
+};
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    readSidebar: function readSidebar() {
-      return dispatch(Object(_store_modules_Sidebar__WEBPACK_IMPORTED_MODULE_25__["readSidebar"])());
+    checkedMenu: function checkedMenu(id) {
+      return dispatch(Object(_store_modules_Sidebar__WEBPACK_IMPORTED_MODULE_25__["checkedMenu"])(id));
     } // getAdminMenuList : ()=>dispatch(getAdminMenuList()),
 
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_24__["connect"])(null, mapDispatchToProps)(Sidebar));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_24__["connect"])(mapStateToProps, mapDispatchToProps)(Sidebar));
 
 /***/ }),
 /* 193 */
@@ -30102,264 +30125,111 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_icons_ExpandMore__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_ExpandMore__WEBPACK_IMPORTED_MODULE_10__);
 /* harmony import */ var _material_ui_icons_Label__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(279);
 /* harmony import */ var _material_ui_icons_Label__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_Label__WEBPACK_IMPORTED_MODULE_11__);
-function _typeof(obj) {
-  "@babel/helpers - typeof";
 
-  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    _typeof = function _typeof(obj) {
-      return typeof obj;
-    };
-  } else {
-    _typeof = function _typeof(obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    };
-  }
 
-  return _typeof(obj);
-}
 
-function ownKeys(object, enumerableOnly) {
-  var keys = Object.keys(object);
 
-  if (Object.getOwnPropertySymbols) {
-    var symbols = Object.getOwnPropertySymbols(object);
-    if (enumerableOnly) symbols = symbols.filter(function (sym) {
-      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-    });
-    keys.push.apply(keys, symbols);
-  }
 
-  return keys;
-}
 
-function _objectSpread(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i] != null ? arguments[i] : {};
 
-    if (i % 2) {
-      ownKeys(Object(source), true).forEach(function (key) {
-        _defineProperty(target, key, source[key]);
-      });
-    } else if (Object.getOwnPropertyDescriptors) {
-      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-    } else {
-      ownKeys(Object(source)).forEach(function (key) {
-        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-      });
-    }
-  }
 
-  return target;
-}
 
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
 
-  return obj;
-}
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
 
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
-  }
-}
 
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
-}
-
-function _possibleConstructorReturn(self, call) {
-  if (call && (_typeof(call) === "object" || typeof call === "function")) {
-    return call;
-  }
-
-  return _assertThisInitialized(self);
-}
-
-function _getPrototypeOf(o) {
-  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
-    return o.__proto__ || Object.getPrototypeOf(o);
-  };
-  return _getPrototypeOf(o);
-}
-
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return self;
-}
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function");
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) _setPrototypeOf(subClass, superClass);
-}
-
-function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
+var NestedList = function NestedList(props) {
+  var handleClick = function handleClick(menuId) {
+    //dispatch menuId
+    props.checkedMenu(menuId);
   };
 
-  return _setPrototypeOf(o, p);
-}
-
-
-
-
-
-
-
-
-
-
-
-
- // const NestedList = (props)=>{
-//     const handleClick = (menuId)=>{
-//         //dispatch menuId
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_List__WEBPACK_IMPORTED_MODULE_1__["default"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListSubheader__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    inset: true
+  }, props.menuTitle), props.menuList.map(function (item) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      key: item.MENUID
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItem__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      button: true,
+      onClick: function onClick(e) {
+        handleClick(item.MENUID);
+      }
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemText__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      primary: item.MENUNAME
+    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Collapse__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      component: "li",
+      "in": item.show,
+      timeout: "auto",
+      unmountOnExit: true
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_List__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      component: "div",
+      disablePadding: true
+    }, item.children.map(function (sidebar) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItem__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        button: true,
+        key: sidebar.MENUID
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemIcon__WEBPACK_IMPORTED_MODULE_3__["default"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_Label__WEBPACK_IMPORTED_MODULE_11___default.a, null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemText__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        primary: sidebar.MENUNAME
+      }));
+    }))));
+  })));
+}; // class NestedList extends React.Component{
+//     constructor(props){
+//         super(props);
+//         this.state={
+//             items : getItems().sidebarList.map(item =>({...item,show:true}))
+//         }
+//         this.handleClick = this.handleClick.bind(this);
 //     }
-//     return (
-//         <div>
-//             <List>
-//                 <ListSubheader inset>Menu</ListSubheader>
-//             {this.state.items.map((item)=>{ return ( 
-//                 <div key = {item.menuId}>
-//                     <ListItem button onClick={(e)=>{this.handleClick(item.menuId);}}>
-//                         <ListItemText primary={item.menuName}/>
-//                     </ListItem>
-//                     <Collapse
-//                         component="li"
-//                         in={item.show}
-//                         timeout="auto"
-//                         unmountOnExit
-//                     >
-//                         <List component="div" disablePadding>
-//                             {
-//                             item.subSidebarList.map(
-//                                 (sidebar)=>{return (
-//                                 <ListItem button key={sidebar.menuId}>
-//                                     <ListItemIcon>
-//                                         <LabelIcon />
-//                                     </ListItemIcon>
-//                                     <ListItemText primary={sidebar.menuName} />
-//                                 </ListItem>
-//                             );}
-//                             )}
-//                         </List>
-//                     </Collapse>
-//                 </div>
-//             );})}
-//             </List>
-//         </div>           
-//     )
-// };
+//     handleClick(menuId){
+//         const { items } = this.state;
+//         const nextState = items.map((item) => {
+//         if (menuId !== item.menuId) return item;
+//         return {
+//             ...item,
+//             show:!item.show,
+//         }
+//         });
+//         this.setState({ items: nextState });
+//     };
+//     render(){
+//         return (
+//             <div>
+//                 <List>
+//                     <ListSubheader inset>Menu</ListSubheader>
+//                 {this.state.items.map((item)=>{ return ( 
+//                     <div key = {item.menuId}>
+//                         <ListItem button onClick={(e)=>{this.handleClick(item.menuId);}}>
+//                             <ListItemText primary={item.menuName}/>
+//                         </ListItem>
+//                         <Collapse
+//                             component="li"
+//                             in={item.show}
+//                             timeout="auto"
+//                             unmountOnExit
+//                         >
+//                             <List component="div" disablePadding>
+//                                 {
+//                                 item.subSidebarList.map(
+//                                     (sidebar)=>{return (
+//                                     <ListItem button key={sidebar.menuId}>
+//                                         <ListItemIcon>
+//                                             <LabelIcon />
+//                                         </ListItemIcon>
+//                                         <ListItemText primary={sidebar.menuName} />
+//                                     </ListItem>
+//                                 );}
+//                                 )}
+//                             </List>
+//                         </Collapse>
+//                     </div>
+//                 );})}
+//                 </List>
+//             </div>           
+//         )
+//     }
+// }
 
-var NestedList = /*#__PURE__*/function (_React$Component) {
-  _inherits(NestedList, _React$Component);
-
-  function NestedList(props) {
-    var _this;
-
-    _classCallCheck(this, NestedList);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(NestedList).call(this, props));
-    _this.state = {
-      items: getItems().sidebarList.map(function (item) {
-        return _objectSpread({}, item, {
-          show: true
-        });
-      })
-    };
-    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
-    return _this;
-  }
-
-  _createClass(NestedList, [{
-    key: "handleClick",
-    value: function handleClick(menuId) {
-      var items = this.state.items;
-      var nextState = items.map(function (item) {
-        if (menuId !== item.menuId) return item;
-        return _objectSpread({}, item, {
-          show: !item.show
-        });
-      });
-      this.setState({
-        items: nextState
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this2 = this;
-
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_List__WEBPACK_IMPORTED_MODULE_1__["default"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListSubheader__WEBPACK_IMPORTED_MODULE_5__["default"], {
-        inset: true
-      }, "Menu"), this.state.items.map(function (item) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          key: item.menuId
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItem__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          button: true,
-          onClick: function onClick(e) {
-            _this2.handleClick(item.menuId);
-          }
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemText__WEBPACK_IMPORTED_MODULE_4__["default"], {
-          primary: item.menuName
-        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Collapse__WEBPACK_IMPORTED_MODULE_6__["default"], {
-          component: "li",
-          "in": item.show,
-          timeout: "auto",
-          unmountOnExit: true
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_List__WEBPACK_IMPORTED_MODULE_1__["default"], {
-          component: "div",
-          disablePadding: true
-        }, item.subSidebarList.map(function (sidebar) {
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItem__WEBPACK_IMPORTED_MODULE_2__["default"], {
-            button: true,
-            key: sidebar.menuId
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemIcon__WEBPACK_IMPORTED_MODULE_3__["default"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_Label__WEBPACK_IMPORTED_MODULE_11___default.a, null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemText__WEBPACK_IMPORTED_MODULE_4__["default"], {
-            primary: sidebar.menuName
-          }));
-        }))));
-      })));
-    }
-  }]);
-
-  return NestedList;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (NestedList);
 /**
@@ -30925,6 +30795,7 @@ exports.default = _default;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "readSidebar", function() { return readSidebar; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkedMenu", function() { return checkedMenu; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Sidebar; });
 function ownKeys(object, enumerableOnly) {
   var keys = Object.keys(object);
@@ -30978,8 +30849,9 @@ function _defineProperty(obj, key, value) {
 
 var READ = 'Sidebar/READ'; // const CREATE = 'Sidebar/CREATE';
 // const DELETE = 'Sidebar/DELETE';
-// const UPDATE = 'Sidebar/UPDATE'
-// **** 액션 생섬함수 정의
+// const UPDATE = 'Sidebar/UPDATE';
+
+var CHECKEDMENU = 'Sidebar/CHECKEDMENU'; // **** 액션 생섬함수 정의
 
 var readSidebar = function readSidebar() {
   return {
@@ -30989,7 +30861,13 @@ var readSidebar = function readSidebar() {
 }; // export const createSidebar = (todo) => ({ type: CREATE, todo:todo });
 // export const deleteSidebar = (id) => ({ type: DELETE , id});
 // export const updateSidebar = (id) =>({type:CHECKED , id:id});
-// **** 초기상태 정의
+
+var checkedMenu = function checkedMenu(id) {
+  return {
+    type: CHECKEDMENU,
+    id: id
+  };
+}; // **** 초기상태 정의
 
 var initialState = {
   // menuList : [],
@@ -30999,25 +30877,42 @@ var initialState = {
 };
 
 var parseMenuList = function parseMenuList(result) {
-  console.log(result);
   var menuList = [];
   var temp = {};
+  var map = {},
+      node,
+      roots = [],
+      i;
 
   for (var j = 0; j < result.rows.length; j++) {
     temp = {};
 
-    for (var i = 0; i < result.metaData.length; i++) {
-      console.log(result.metaData[i].name);
-      console.log(result.rows[j][i]);
-      temp[result.metaData[i].name] = result.rows[j][i];
-      console.log(temp);
+    for (var _i = 0; _i < result.metaData.length; _i++) {
+      temp[result.metaData[_i].name] = result.rows[j][_i];
     }
 
+    temp['show'] = false;
     menuList.push(temp);
   }
 
-  console.log(menuList);
-  return menuList;
+  for (i = 0; i < menuList.length; i += 1) {
+    map[menuList[i].MENUID] = i; // initialize the map
+
+    menuList[i].children = []; // initialize the children
+  }
+
+  for (i = 0; i < menuList.length; i += 1) {
+    node = menuList[i];
+
+    if (node.PARENTMENUID === null) {
+      roots.push(node);
+    } else {
+      // if you have dangling branches check that map[node.parentId] exists
+      menuList[map[node.PARENTMENUID]].children.push(node);
+    }
+  }
+
+  return roots;
 }; // **** 리듀서 작성
 
 
@@ -31029,9 +30924,34 @@ function Sidebar() {
 
   switch (action.type) {
     case READ:
-      menuList = parseMenuList(window.getmenuList(action)); // console.log(store);
+      menuList = parseMenuList(window.getmenuList(action));
+      action.admin = 'Y';
+      adminMenuList = parseMenuList(window.getmenuList(action));
+      return _objectSpread({}, state, {
+        menuList: menuList,
+        adminMenuList: adminMenuList
+      });
 
-      return _objectSpread({}, state);
+    case CHECKEDMENU:
+      menuList = JSON.parse(JSON.stringify(state.menuList));
+      adminMenuList = JSON.parse(JSON.stringify(state.adminMenuList));
+
+      for (var i = 0; i < menuList.length; i++) {
+        if (action.id === menuList[i].MENUID) {
+          menuList[i].show = !menuList[i].show;
+        }
+      }
+
+      for (var _i2 = 0; _i2 < adminMenuList.length; _i2++) {
+        if (action.id === adminMenuList[_i2].MENUID) {
+          adminMenuList[_i2].show = !adminMenuList[_i2].show;
+        }
+      }
+
+      return _objectSpread({}, state, {
+        menuList: menuList,
+        adminMenuList: adminMenuList
+      });
 
     default:
       return state;

@@ -25,12 +25,9 @@ import NestedList from '../component/NestedList';
 import HomeIcon from '@material-ui/icons/Home';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { connect } from 'react-redux';
-import {readSidebar} from '../store/modules/Sidebar';
+import {checkedMenu} from '../store/modules/Sidebar';
 
 const Sidebar = (props)=>{
-  // props.getMenuList();
-  // props.getAdminMenuList();
-  props.readSidebar();
     return (
         <Drawer
         variant="permanent"
@@ -45,26 +42,25 @@ const Sidebar = (props)=>{
           </IconButton>
         </div>
         <Divider />
-        {/* <NestedList menuList = {menuList} ></NestedList> */}
+        <NestedList menuTitle='Menu' menuList = {props.menuList} checkedMenu = {props.checkedMenu}></NestedList>
         
         {/* <List>{mainListItems}</List> */}
         <Divider />
-        <List>{secondaryListItems}</List>
+        {/* <List>{secondaryListItems}</List> */}
+        <NestedList menuTitle='Admin' menuList = {props.adminMenuList} checkedMenu = {props.checkedMenu}></NestedList>
       </Drawer>
     );
 }
 
-// export default Sidebar;
-
-
-// const mapStateToProps = ({ Sidebar }) => ({
-//   // menuList: Sidebar.menuList
-// });
+const mapStateToProps = ({ Sidebar }) => ({
+  menuList: Sidebar.menuList,
+  adminMenuList : Sidebar.adminMenuList
+});
 
 
 const mapDispatchToProps = dispatch => ({
-  readSidebar : () =>dispatch(readSidebar())
+  checkedMenu : (id) =>dispatch(checkedMenu(id))
   // getAdminMenuList : ()=>dispatch(getAdminMenuList()),
 });
 
-export default connect(null,mapDispatchToProps)(Sidebar);
+export default connect(mapStateToProps,mapDispatchToProps)(Sidebar);

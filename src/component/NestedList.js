@@ -12,104 +12,105 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 import LabelIcon from '@material-ui/icons/Label';
 
 
-// const NestedList = (props)=>{
-//     const handleClick = (menuId)=>{
-//         //dispatch menuId
+const NestedList = (props)=>{
+    const handleClick = (menuId)=>{
+        //dispatch menuId
+        props.checkedMenu(menuId);
+    }
+    return (
+        <div>
+            <List>
+                <ListSubheader inset>{props.menuTitle}</ListSubheader>
+            {props.menuList.map((item)=>{ return ( 
+                <div key = {item.MENUID}>
+                    <ListItem button onClick={(e)=>{handleClick(item.MENUID);}}>
+                        <ListItemText primary={item.MENUNAME}/>
+                    </ListItem>
+                    <Collapse
+                        component="li"
+                        in={item.show}
+                        timeout="auto"
+                        unmountOnExit
+                    >
+                        <List component="div" disablePadding>
+                            {
+                            item.children.map(
+                                (sidebar)=>{return (
+                                <ListItem button key={sidebar.MENUID}>
+                                    <ListItemIcon>
+                                        <LabelIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary={sidebar.MENUNAME} />
+                                </ListItem>
+                            );}
+                            )}
+                        </List>
+                    </Collapse>
+                </div>
+            );})}
+            </List>
+        </div>           
+    )
+
+};
+
+
+// class NestedList extends React.Component{
+//     constructor(props){
+//         super(props);
+//         this.state={
+//             items : getItems().sidebarList.map(item =>({...item,show:true}))
+//         }
+//         this.handleClick = this.handleClick.bind(this);
 //     }
-//     return (
-//         <div>
-//             <List>
-//                 <ListSubheader inset>Menu</ListSubheader>
-//             {this.state.items.map((item)=>{ return ( 
-//                 <div key = {item.menuId}>
-//                     <ListItem button onClick={(e)=>{this.handleClick(item.menuId);}}>
-//                         <ListItemText primary={item.menuName}/>
-//                     </ListItem>
-//                     <Collapse
-//                         component="li"
-//                         in={item.show}
-//                         timeout="auto"
-//                         unmountOnExit
-//                     >
-//                         <List component="div" disablePadding>
-//                             {
-//                             item.subSidebarList.map(
-//                                 (sidebar)=>{return (
-//                                 <ListItem button key={sidebar.menuId}>
-//                                     <ListItemIcon>
-//                                         <LabelIcon />
-//                                     </ListItemIcon>
-//                                     <ListItemText primary={sidebar.menuName} />
-//                                 </ListItem>
-//                             );}
-//                             )}
-//                         </List>
-//                     </Collapse>
-//                 </div>
-//             );})}
-//             </List>
-//         </div>           
-//     )
-
-// };
-
-
-class NestedList extends React.Component{
-    constructor(props){
-        super(props);
-        this.state={
-            items : getItems().sidebarList.map(item =>({...item,show:true}))
-        }
-        this.handleClick = this.handleClick.bind(this);
-    }
-    handleClick(menuId){
-        const { items } = this.state;
-        const nextState = items.map((item) => {
-        if (menuId !== item.menuId) return item;
-        return {
-            ...item,
-            show:!item.show,
-        }
-        });
-        this.setState({ items: nextState });
-    };
-    render(){
-        return (
-            <div>
-                <List>
-                    <ListSubheader inset>Menu</ListSubheader>
-                {this.state.items.map((item)=>{ return ( 
-                    <div key = {item.menuId}>
-                        <ListItem button onClick={(e)=>{this.handleClick(item.menuId);}}>
-                            <ListItemText primary={item.menuName}/>
-                        </ListItem>
-                        <Collapse
-                            component="li"
-                            in={item.show}
-                            timeout="auto"
-                            unmountOnExit
-                        >
-                            <List component="div" disablePadding>
-                                {
-                                item.subSidebarList.map(
-                                    (sidebar)=>{return (
-                                    <ListItem button key={sidebar.menuId}>
-                                        <ListItemIcon>
-                                            <LabelIcon />
-                                        </ListItemIcon>
-                                        <ListItemText primary={sidebar.menuName} />
-                                    </ListItem>
-                                );}
-                                )}
-                            </List>
-                        </Collapse>
-                    </div>
-                );})}
-                </List>
-            </div>           
-        )
-    }
-}
+//     handleClick(menuId){
+//         const { items } = this.state;
+//         const nextState = items.map((item) => {
+//         if (menuId !== item.menuId) return item;
+//         return {
+//             ...item,
+//             show:!item.show,
+//         }
+//         });
+//         this.setState({ items: nextState });
+//     };
+//     render(){
+//         return (
+//             <div>
+//                 <List>
+//                     <ListSubheader inset>Menu</ListSubheader>
+//                 {this.state.items.map((item)=>{ return ( 
+//                     <div key = {item.menuId}>
+//                         <ListItem button onClick={(e)=>{this.handleClick(item.menuId);}}>
+//                             <ListItemText primary={item.menuName}/>
+//                         </ListItem>
+//                         <Collapse
+//                             component="li"
+//                             in={item.show}
+//                             timeout="auto"
+//                             unmountOnExit
+//                         >
+//                             <List component="div" disablePadding>
+//                                 {
+//                                 item.subSidebarList.map(
+//                                     (sidebar)=>{return (
+//                                     <ListItem button key={sidebar.menuId}>
+//                                         <ListItemIcon>
+//                                             <LabelIcon />
+//                                         </ListItemIcon>
+//                                         <ListItemText primary={sidebar.menuName} />
+//                                     </ListItem>
+//                                 );}
+//                                 )}
+//                             </List>
+//                         </Collapse>
+//                     </div>
+//                 );})}
+//                 </List>
+//             </div>           
+//         )
+//     }
+// }
 
 export default NestedList;
 
