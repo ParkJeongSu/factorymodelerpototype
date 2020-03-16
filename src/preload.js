@@ -14,6 +14,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
 const { ipcRenderer } = require('electron');
 
+
+window.dbid;
+window.dbpw;
+window.host;
 /* Db Config */
 window.getDbConfig = function () {
   return ipcRenderer.sendSync('getDbConfig');
@@ -35,13 +39,23 @@ window.createTodoList = function(action){
   return ipcRenderer.sendSync('createTodoList',action);
 }
 window.deleteTodoList = function (action) {
-  console.log('preload.js');
   return ipcRenderer.sendSync('deleteTodoList',action);
 }
 window.checkedTodoList = function (action) {
-  console.log('preload.js');
   return ipcRenderer.sendSync('checkedTodoList',action);
 }
 /* To Do List */
 
+/* Db connection */
+window.dbConnectTest = function (action) {
+  return ipcRenderer.sendSync('dbConnectTest',action);
+}
+/* Db connection */
 
+window.getmenuList = function (action) {
+  action.dbid = window.dbid;
+  action.dbpw = window.dbpw
+  action.host = window.host
+
+  return ipcRenderer.sendSync('getmenuList',action);
+}

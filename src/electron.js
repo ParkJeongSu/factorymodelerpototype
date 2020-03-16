@@ -3,7 +3,8 @@ const {app, BrowserWindow} = require('electron');
 const path = require('path');
 const jsonfile = require('jsonfile');
 const { ipcMain } = require('electron');
-const os = require('os');
+const oracledb = require('oracledb');
+
 
 
 const dbconfigPath = path.join(__dirname, "/../config/dbconfig.json");
@@ -196,3 +197,79 @@ ipcMain.on("createTodoList", (event, arg) => {
 });
 
 /* To do List */
+
+/**
+ * Db Connection Test
+ *  */
+ipcMain.on("dbConnectTest", async (event,arg)=>{
+  const dbconfig = {
+    user: arg.dbid,
+    password: arg.dbpw,
+    host: arg.host
+  };
+  let connection;
+  try{
+    connection = await oracledb.getConnection(dbconfig);
+  }
+  catch(err){
+    console.error(err);
+  }
+  finally{
+    if (connection) {
+      try {
+        await connection.close();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }
+  if(connection!==undefined){
+    event.returnValue = true;
+  }
+  else{
+    event.returnValue = false;
+  }
+});
+
+/**
+ * Db Connection Test
+ *  */
+
+
+ipcMain.on("getmenuList", async (event,arg)=>{
+  const dbconfig = {
+    user: arg.dbid,
+    password: arg.dbpw,
+    host: arg.host
+  };
+  let connection;
+  let result;
+
+  try{
+    connection = await oracledb.getConnection(dbconfig);
+
+    result = await connection.execute(
+      `SELECT * FROM FM_MENU WHERE ADMINFLAG = :ADMINFLAG`,
+      [arg.admin]
+    );
+    // console.log(result.metaData);
+    // console.log(result.rows);
+  }
+  catch(err){
+    console.error(err);
+  }
+  finally{
+    if (connection) {
+      try {
+        await connection.close();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }
+
+  event.returnValue = result;
+
+});
+
+

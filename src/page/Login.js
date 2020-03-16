@@ -16,8 +16,8 @@ import AutocompleteContainer from '../containers/AutocompleteContainer';
 import TextFieldContainer from '../containers/TextFieldContainer';
 
 import { connect } from 'react-redux';
-import { logIn,saveDbconfig ,deleteDbconfig ,changeName ,changeHost,changeDbId,changeDbPw ,changeUserId, changeUserPw} from '../store/modules/logInOut';
-import { connectTest } from '../store/modules/DbConnect';
+import { logIn,saveDbconfig ,deleteDbconfig ,changeName ,changeHost,changeDbId,changeDbPw ,changeUserId, changeUserPw, connectTest} from '../store/modules/logInOut';
+
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -51,7 +51,6 @@ const Copyright = () => {
 
 const Login = (props)=>{
   const classes = useStyles();
-
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />

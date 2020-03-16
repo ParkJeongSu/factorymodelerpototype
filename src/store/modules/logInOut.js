@@ -15,6 +15,8 @@ const SAVEDBCONFIG = 'logInOut/SAVEDBCONFIG';
 const DELETEDBCONFIG = 'logInOut/DELETEDBCONFIG';
 
 
+const CONNECTTEST = 'logInOut/CONNECTTEST';
+
 // **** 액션 생섬함수 정의
 export const logIn = () => ({ type: LOGIN });
 export const logOut = () => ({ type: LOGOUT });
@@ -31,19 +33,24 @@ export const selectedDbconfig = (id)=>({type: SELECTEDDBCONFIG,id:id});
 export const saveDbconfig = () => ({type: SAVEDBCONFIG});
 export const deleteDbconfig = ()=>({type:DELETEDBCONFIG});
 
+// **** 액션 생섬함수 정의
+export const connectTest = () => ({ type: CONNECTTEST });
+
+
 // **** 초기상태 정의
 const initialState = {
-     dbconfigList : [],
+    //  dbconfigList : [],
     // only electron
-    //dbconfigList : window.getDbConfig(),    
-    isLogin: true,
+    dbconfigList : window.getDbConfig(),    
+    isLogin: false,
     id: '',
     name:'',
     host:'',
     dbid:'',
     dbpw:'',
     userid:'',
-    userpw:''
+    userpw:'',
+    dbConnectTest: null,
   };
 
 // **** 리듀서 작성
@@ -51,16 +58,19 @@ export default function logInOut(state = initialState, action) {
   let dbconfigList;
   switch (action.type) {
     case LOGIN:
+      window.host = state.host;
+      window.dbid = state.dbid;
+      window.dbpw = state.dbpw;
       return {
         ...state,
         isLogin: true
       };
     case LOGOUT:
-      console.log('?');
       return {
         ...state,
         isLogin: false,
-        id: ""
+        id: "",
+        dbConnectTest : null
       };
     case CHANGEID:
       return {
@@ -98,16 +108,17 @@ export default function logInOut(state = initialState, action) {
         userpw: action.userpw
       };
     case SAVEDBCONFIG:
-      dbconfigList = []
-      //dbconfigList = window.saveDbConfig(state);
+      // dbconfigList = []
+      dbconfigList = window.saveDbConfig(state);
       return {
         ...state,
         dbconfigList : dbconfigList,
-        id:dbconfigList.length
+        id:dbconfigList.length,
+        dbConnectTest: null
       };
       case DELETEDBCONFIG:
-        dbconfigList = [];
-        //dbconfigList = window.deleteDbConfig(state);
+        // dbconfigList = [];
+        dbconfigList = window.deleteDbConfig(state);
         console.log('dbconfigList why?');
         console.log(dbconfigList);
         return {
@@ -119,12 +130,13 @@ export default function logInOut(state = initialState, action) {
           dbid: '',
           dbpw: '',
           userid: '',
-          userpw: ''
+          userpw: '',
+          dbConnectTest: null
         };
     case SELECTEDDBCONFIG:
-      let dbconfigList = [];
+      // let dbconfigList = [];
       // only electron
-      // dbconfigList = window.getDbConfig();
+      dbconfigList = window.getDbConfig();
       let id = "";
       let name = "";
       let host = "";
@@ -154,7 +166,13 @@ export default function logInOut(state = initialState, action) {
         dbid: dbid,
         dbpw: dbpw,
         userid: userid,
-        userpw: userpw
+        userpw: userpw,
+        dbConnectTest: null
+      };
+      case CONNECTTEST:
+      return {
+        ...state,
+        dbConnectTest: window.dbConnectTest(state)
       };
     default:
       return state;

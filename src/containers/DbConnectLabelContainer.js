@@ -26,8 +26,8 @@ const DbConnectLabelContainer = (props)=>{
 
 }
 
-const mapStateToProps = ({ DbConnect }) => ({
-  dbConnectTest: DbConnect.dbConnectTest,
+const mapStateToProps = ({ logInOut }) => ({
+  dbConnectTest: logInOut.dbConnectTest,
 });
 
 export default connect(mapStateToProps)(DbConnectLabelContainer);

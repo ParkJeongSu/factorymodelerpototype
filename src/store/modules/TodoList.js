@@ -21,6 +21,7 @@ const initialState = {
 
 // **** 리듀서 작성
 export default function logInOut(state = initialState, action) {
+  // console.log(state);
   let todoList;
   switch (action.type) {
     case READ:
@@ -46,6 +47,7 @@ export default function logInOut(state = initialState, action) {
         todoList : todoList
       };
     default:
+      // console.log(state);
       return state;
   }
 }

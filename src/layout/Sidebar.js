@@ -1,4 +1,4 @@
-﻿import React from 'react';
+﻿import React,{useState} from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -24,10 +24,13 @@ import NestedList from '../component/NestedList';
 
 import HomeIcon from '@material-ui/icons/Home';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-
-
+import { connect } from 'react-redux';
+import {readSidebar} from '../store/modules/Sidebar';
 
 const Sidebar = (props)=>{
+  // props.getMenuList();
+  // props.getAdminMenuList();
+  props.readSidebar();
     return (
         <Drawer
         variant="permanent"
@@ -42,7 +45,8 @@ const Sidebar = (props)=>{
           </IconButton>
         </div>
         <Divider />
-        <NestedList></NestedList>
+        {/* <NestedList menuList = {menuList} ></NestedList> */}
+        
         {/* <List>{mainListItems}</List> */}
         <Divider />
         <List>{secondaryListItems}</List>
@@ -50,4 +54,17 @@ const Sidebar = (props)=>{
     );
 }
 
-export default Sidebar;
+// export default Sidebar;
+
+
+// const mapStateToProps = ({ Sidebar }) => ({
+//   // menuList: Sidebar.menuList
+// });
+
+
+const mapDispatchToProps = dispatch => ({
+  readSidebar : () =>dispatch(readSidebar())
+  // getAdminMenuList : ()=>dispatch(getAdminMenuList()),
+});
+
+export default connect(null,mapDispatchToProps)(Sidebar);

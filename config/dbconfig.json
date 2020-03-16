@@ -2,21 +2,13 @@
   "dbconfigList": [
     {
       "id": 0,
-      "name": "name1",
-      "host": "test1",
-      "dbid": "dbid1",
+      "name": "dbConnectTest",
+      "host": "localhost:1521/orcl",
+      "dbid": "SCOTT",
       "dbpw": "1234",
-      "userid": "userid1",
-      "userpw": "pw1234"
-    },
-    {
-      "id": 1,
-      "name": "name2",
-      "host": "name2",
-      "dbid": "name2",
-      "dbpw": "name2",
-      "userid": "name2",
-      "userpw": "name2"
+      "userid": "TEST",
+      "userpw": "TEST",
+      "dbConnectTest": true
     }
   ]
 }
