@@ -1,76 +1,6 @@
 ﻿import React,{useState} from 'react';
 import MaterialTable from 'material-table';
-
-// export default function NomalTable() {
-//   const [state, setState] = React.useState({
-//     columns: [
-//       { title: 'Name', field: 'name' },
-//       { title: 'Surname', field: 'surname' },
-//       { title: 'Birth Year', field: 'birthYear', type: 'numeric' },
-//       {
-//         title: 'Birth Place',
-//         field: 'birthCity',
-//         lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
-//       },
-//     ],
-//     data: [
-//       { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
-//       {
-//         name: 'Zerya Betül',
-//         surname: 'Baran',
-//         birthYear: 2017,
-//         birthCity: 34,
-//       },
-//     ],
-//   });
-
-//   return (
-//     <MaterialTable
-//       title="Editable Example"
-//       columns={state.columns}
-//       data={state.data}
-//       editable={
-//           {
-//         onRowAdd: newData =>
-//           new Promise(resolve => {
-//             setTimeout(() => {
-//               resolve();
-//               setState(prevState => {
-//                 const data = [...prevState.data];
-//                 data.push(newData);
-//                 return { ...prevState, data };
-//               });
-//             }, 600);
-//           }),
-//         onRowUpdate: (newData, oldData) =>
-//           new Promise(resolve => {
-//             setTimeout(() => {
-//               resolve();
-//               if (oldData) {
-//                 setState(prevState => {
-//                   const data = [...prevState.data];
-//                   data[data.indexOf(oldData)] = newData;
-//                   return { ...prevState, data };
-//                 });
-//               }
-//             }, 600);
-//           }),
-//         onRowDelete: oldData =>
-//           new Promise(resolve => {
-//             setTimeout(() => {
-//               resolve();
-//               setState(prevState => {
-//                 const data = [...prevState.data];
-//                 data.splice(data.indexOf(oldData), 1);
-//                 return { ...prevState, data };
-//               });
-//             }, 600);
-//           }),
-//       }}
-//     />
-//   );
-// }
-
+import Icon from '@material-ui/core/Icon';
 
 class NomalTable extends React.Component {
     constructor(props) {
@@ -78,17 +8,23 @@ class NomalTable extends React.Component {
       this.state = {
         columns: [
           { title: 'Name', field: 'name' },
-          { title: 'Surname', field: 'surname', initialEditValue: 'initial edit value' },
+          { title: 'Surname', field: 'surname' },
           { title: 'Birth Year', field: 'birthYear', type: 'numeric' },
           {
             title: 'Birth Place',
             field: 'birthCity',
             lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
           },
+          { title: 'test1', field: 'test1', type: 'numeric' },
+          { title: 'test2', field: 'test2', type: 'numeric' },
+          { title: 'test3', field: 'test3', type: 'numeric' },
+          { title: 'test4', field: 'test4', type: 'numeric' },
+          { title: 'test5', field: 'test5', type: 'numeric' },
+          { title: 'test5', field: 'test5', type: 'numeric' }
         ],
         data: [
-          { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
-          { name: 'Zerya Betül', surname: 'Baran', birthYear: 2017, birthCity: 34 },
+          { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 ,test1: 20,test2: 20,test3: 20,test4: 20,test5: 20},
+          { name: 'Zerya Betül', surname: 'Baran', birthYear: 2017, birthCity: 34 ,test1: 20,test2: 20,test3: 20,test4: 20,test5: 20},
         ]
       }
     }
@@ -96,6 +32,7 @@ class NomalTable extends React.Component {
     render() {
       return (
         <MaterialTable
+          icons ={Icon}
           title="Editable Preview"
           columns={this.state.columns}
           data={this.state.data}
@@ -114,17 +51,24 @@ class NomalTable extends React.Component {
               }).then((resolve)=>{ alert(resolve); }).catch((reject)=>{alert(reject);}),
             onRowDelete: oldData =>
               new Promise((resolve, reject) => {
-                setTimeout(() => {
-                  {
-                    let data = this.state.data;
-                    const index = data.indexOf(oldData);
-                    data.splice(index, 1);
-                    this.setState({ data }, () => resolve());
-                  }
-                  resolve()
-                }, 1000)
-              }),
+                  const index = this.state.data.indexOf(oldData);
+                  let newDataList = JSON.parse(JSON.stringify(this.state.data));
+                  newDataList.splice(index,1);
+                  this.setState({...this.state,data : newDataList},()=>resolve('한건이 정상적으로 삭제됨'));
+              }).then((resolve)=>{alert(resolve);}).catch((reject)=>{ alert(reject); }),
           }}
+          options={{
+            actionsColumnIndex: -1,
+            exportButton: true
+          }}
+          actions={[
+            {
+              icon: 'vertical_align_top',
+              tooltip: 'Import',
+              isFreeAction: true,
+              onClick: (event) => alert("You want to add a new row")
+            }
+          ]}
         />
       )
     }
