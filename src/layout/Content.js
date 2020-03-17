@@ -9,21 +9,28 @@ import Deposits from '../component/Deposits';
 import Orders from '../component/Orders';
 import Copyright from './Footer';
 import ToDoListMain from '../component/ToDoListMain';
-
+import NomalTable from '../component/NomalTable';
 
 const Content = (props)=> {
     return (
       <main className={props.classes.content}>
         <div className={props.classes.appBarSpacer} />
         <Container maxWidth="lg" className={props.classes.container}>
-
+          
+          {/* Nomal Table */}
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={8} lg={9}>
+              <NomalTable />
+            </Grid>
+          </Grid>
+          {/* Nomal Table */}
           {/* Home */}
           <Grid container spacing={3}>
-            {/* Chart */}
             <Grid item xs={12} md={8} lg={9}>
               <ToDoListMain />
             </Grid>
           </Grid>
+          {/* Home */}
 
           <Grid container spacing={3}>
             {/* Chart */}
@@ -47,8 +54,6 @@ const Content = (props)=> {
           </Grid>
 
           {/* Home */}
-
-          
 
           <Box pt={4}>
             <Copyright />

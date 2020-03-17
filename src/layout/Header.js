@@ -30,7 +30,7 @@ const Header = (props) => {
         <MenuIcon />
       </IconButton>
       <Typography component="h1" variant="h6" color="inherit" noWrap className={props.classes.title}>
-        Dashboard
+        {props.title}
       </Typography>
       <IconButton color="inherit">
         <HomeIcon></HomeIcon>

@@ -111,7 +111,7 @@ const  Main = (props)=> {
     return (
       <div className={classes.root}>
         <CssBaseline />
-        <Header classes={classes} open={open} handleDrawerOpen={handleDrawerOpen}></Header>
+        <Header classes={classes} open={open} handleDrawerOpen={handleDrawerOpen} title={props.tableName}></Header>
         <Sidebar classes={classes} open ={open} handleDrawerClose={handleDrawerClose}></Sidebar>
         <Content classes={classes} fixedHeightPaper ={fixedHeightPaper}></Content>
       </div>
@@ -120,9 +120,15 @@ const  Main = (props)=> {
 
   // export default Main;
 
+  const mapStateToProps = ({ Content }) => ({
+    home : Content.home,
+    tableName : Content.tableName,
+
+  });
+
   const mapDispatchToProps = dispatch => ({
     readSidebar: () => dispatch(readSidebar()),
   });
   
 
-  export default connect(null,mapDispatchToProps)(Main);
+  export default connect(mapStateToProps,mapDispatchToProps)(Main);
