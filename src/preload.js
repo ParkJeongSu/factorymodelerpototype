@@ -59,3 +59,21 @@ window.getmenuList = function (action) {
 
   return ipcRenderer.sendSync('getmenuList',action);
 }
+
+window.getFM_METADATA = function (action) {
+  action.dbid = window.dbid;
+  action.dbpw = window.dbpw
+  action.host = window.host
+
+  return ipcRenderer.sendSync('getFM_METADATA',action);
+}
+
+
+
+window.getData = function (action) {
+  action.dbid = window.dbid;
+  action.dbpw = window.dbpw
+  action.host = window.host
+
+  return ipcRenderer.sendSync('getData',action);
+}

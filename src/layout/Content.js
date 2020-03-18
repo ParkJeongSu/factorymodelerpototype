@@ -12,6 +12,8 @@ import ToDoListMain from '../component/ToDoListMain';
 import NomalTable from '../component/NomalTable';
 
 const Content = (props)=> {
+  console.log(props.columnList);
+  console.log(props.dataList);
     return (
       <main className={props.classes.content}>
         <div className={props.classes.appBarSpacer} />
@@ -20,7 +22,7 @@ const Content = (props)=> {
           {/* Nomal Table */}
           <Grid container spacing={3}>
             <Grid item xs={12} md={8} lg={9}>
-              <NomalTable />
+              <NomalTable columnList={props.columnList} dataList = {props.dataList} />
             </Grid>
           </Grid>
           {/* Nomal Table */}

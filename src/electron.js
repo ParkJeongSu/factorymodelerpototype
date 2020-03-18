@@ -273,3 +273,85 @@ ipcMain.on("getmenuList", async (event,arg)=>{
 });
 
 
+
+
+ipcMain.on("getFM_METADATA", async (event,arg)=>{
+  const dbconfig = {
+    user: arg.dbid,
+    password: arg.dbpw,
+    host: arg.host
+  };
+
+  let tableName = arg.tableName;
+  let connection;
+  let result;
+
+  try{
+    connection = await oracledb.getConnection(dbconfig);
+
+    result = await connection.execute(
+      `SELECT * FROM FM_METADATA WHERE TABLENAME = :TABLENAME`,
+      [tableName]
+    );
+    // console.log(result.metaData);
+    // console.log(result.rows);
+  }
+  catch(err){
+    console.error(err);
+  }
+  finally{
+    if (connection) {
+      try {
+        await connection.close();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }
+
+  event.returnValue = result;
+
+});
+
+
+
+ipcMain.on("getData", async (event,arg)=>{
+  const dbconfig = {
+    user: arg.dbid,
+    password: arg.dbpw,
+    host: arg.host
+  };
+
+  let tableName = arg.tableName;
+  let connection;
+  let result;
+  let columnOrder = arg.columnOrder.join(',');
+
+
+  try{
+    connection = await oracledb.getConnection(dbconfig);
+
+    result = await connection.execute(
+      `SELECT ${columnOrder} FROM ${tableName}`
+    );
+    // console.log(result.metaData);
+    // console.log(result.rows);
+  }
+  catch(err){
+    console.error(err);
+  }
+  finally{
+    if (connection) {
+      try {
+        await connection.close();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }
+
+  event.returnValue = result;
+
+});
+
+

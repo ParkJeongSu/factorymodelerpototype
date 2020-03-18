@@ -26,6 +26,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { connect } from 'react-redux';
 import {checkedMenu} from '../store/modules/Sidebar';
+import {clickSideBar} from '../store/modules/Content';
 
 const Sidebar = (props)=>{
     return (
@@ -42,7 +43,7 @@ const Sidebar = (props)=>{
           </IconButton>
         </div>
         <Divider />
-        <NestedList menuTitle='Menu' menuList = {props.menuList} checkedMenu = {props.checkedMenu}></NestedList>
+        <NestedList menuTitle='Menu' menuList = {props.menuList} checkedMenu = {props.checkedMenu} clickSideBar ={props.clickSideBar}></NestedList>
         
         {/* <List>{mainListItems}</List> */}
         <Divider />
@@ -59,8 +60,8 @@ const mapStateToProps = ({ Sidebar }) => ({
 
 
 const mapDispatchToProps = dispatch => ({
-  checkedMenu : (id) =>dispatch(checkedMenu(id))
-  // getAdminMenuList : ()=>dispatch(getAdminMenuList()),
+  checkedMenu : (id) =>dispatch(checkedMenu(id)),
+  clickSideBar : (tableName) => dispatch(clickSideBar(tableName))
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(Sidebar);

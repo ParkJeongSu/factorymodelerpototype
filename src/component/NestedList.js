@@ -36,7 +36,15 @@ const NestedList = (props)=>{
                             {
                             item.children.map(
                                 (sidebar)=>{return (
-                                <ListItem button key={sidebar.MENUID}>
+                                <ListItem button key={sidebar.MENUID} onClick = {(e)=>{
+                                    console.log('빈값은 무엇으로 들어가나?');
+                                    console.log(sidebar.FM_METADATA);
+                                    if(sidebar.FM_METADATA!==null){
+                                        console.log('호출을 할텐데?');
+                                        props.clickSideBar(sidebar.FM_METADATA);
+                                        console.log('호출을 할텐데?');
+                                    }
+                                    }}>
                                     <ListItemIcon>
                                         <LabelIcon />
                                     </ListItemIcon>

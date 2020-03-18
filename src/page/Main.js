@@ -112,8 +112,8 @@ const  Main = (props)=> {
       <div className={classes.root}>
         <CssBaseline />
         <Header classes={classes} open={open} handleDrawerOpen={handleDrawerOpen} title={props.tableName}></Header>
-        <Sidebar classes={classes} open ={open} handleDrawerClose={handleDrawerClose}></Sidebar>
-        <Content classes={classes} fixedHeightPaper ={fixedHeightPaper}></Content>
+        <Sidebar classes={classes} open ={open} handleDrawerClose={handleDrawerClose} ></Sidebar>
+        <Content classes={classes} fixedHeightPaper ={fixedHeightPaper} columnList={props.columnList} dataList = {props.dataList}></Content>
       </div>
     );
   }
@@ -123,6 +123,8 @@ const  Main = (props)=> {
   const mapStateToProps = ({ Content }) => ({
     home : Content.home,
     tableName : Content.tableName,
+    columnList :Content.columnList,
+    dataList : Content.dataList
 
   });
 
